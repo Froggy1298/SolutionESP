@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
+        xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
         mc:Ignorable="d"
         Title="VueEntrerCUP" Height="500" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
@@ -106,15 +107,17 @@
                             BorderThickness="1,0,1,0"
                             Content="0"
                              Style="{StaticResource NumberButton}"/>
-
+                    
                     <Button Grid.Row="4"
                             Grid.Column="2"
-                            Background="white"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Margin="10,10,10,10"
+                             Background="white"
                             BorderBrush="White"
-                            Content="Effacer"
-                            FontSize="15"
-                            FontWeight="Bold"
-                            Margin="10,10,10,10"/>
+                            FontSize="20">
+                        <fa:FontAwesome Icon="Solid_DeleteLeft"/>
+                    </Button>
 
 
                 </Grid>
