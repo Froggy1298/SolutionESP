@@ -1,0 +1,59 @@
+﻿<Page x:Class="CaisseEnregistreuse.Vue.ChoixPaiment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ChoixPaiment">
+    <Page.Resources>
+        <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="75*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+                           Content="Choisir un mode de paiment"
+                           VerticalContentAlignment="Center"
+                           HorizontalContentAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="30"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0"
+                                Margin="30,30,0,0"
+                                BorderThickness="2,2,1,1"
+                                Style="{StaticResource ChoixPaiementBoutton}"
+                                Content="Argent"/>
+
+            <Button Grid.Column="1" Grid.Row="0"
+                                Margin="0,30,30,0"
+                                BorderThickness="1,2,2,1"
+                                Style="{StaticResource ChoixPaiementBoutton}"
+                                Content="Carte Cadeau"/>
+
+            <Button Grid.Column="0" Grid.Row="1"
+                                Margin="30,0,0,30"
+                                BorderThickness="2,1,1,2"
+                                Style="{StaticResource ChoixPaiementBoutton}"
+                                Content="Débit"/>
+
+            <Button Grid.Column="1" Grid.Row="1"
+                                Margin="0,0,30,30"
+                                BorderThickness="1,1,2,2"
+                                Style="{StaticResource ChoixPaiementBoutton}"
+                                Content="Crédit"/>
+        </Grid>
+    </Grid>
+</Page>

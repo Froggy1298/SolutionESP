@@ -5,7 +5,7 @@
 
     <SolidColorBrush x:Key="Yellow" Color="#fddb00"/>
     <SolidColorBrush x:Key="Red" Color="#d71100"/>
-    <SolidColorBrush x:Key="Gray" Color="#f3f4ef"/>
+    <SolidColorBrush x:Key="Gray" Color="#aaada8"/>
     <SolidColorBrush x:Key="Green" Color="#01953f"/>
 
     <Style x:Key="HorizontalLogo" TargetType="Image">
@@ -19,4 +19,25 @@
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
+    <Style x:Key="PanierText" TargetType="Label">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="GridSplitterFacture" TargetType="GridSplitter">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+    </Style>
+
+    <Style x:Key="ChoixPaiementBoutton" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Green}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
 </ResourceDictionary>
