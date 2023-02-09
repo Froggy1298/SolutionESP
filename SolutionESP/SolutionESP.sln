@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaisseEnregistreuse", "CaisseEnregistreuse\CaisseEnregistreuse.csproj", "{C1590BB6-E7EE-4152-A68B-793A245576FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionInventaire", "GestionInventaire\GestionInventaire.csproj", "{ABAF4136-6C41-4F49-841C-1061563887A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionInventaire", "GestionInventaire\GestionInventaire.csproj", "{ABAF4136-6C41-4F49-841C-1061563887A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectHelper", "ProjectHelper\ProjectHelper.csproj", "{684A1A7C-86A3-444A-A809-9FED9058D1ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{ABAF4136-6C41-4F49-841C-1061563887A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABAF4136-6C41-4F49-841C-1061563887A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABAF4136-6C41-4F49-841C-1061563887A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{684A1A7C-86A3-444A-A809-9FED9058D1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{684A1A7C-86A3-444A-A809-9FED9058D1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{684A1A7C-86A3-444A-A809-9FED9058D1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{684A1A7C-86A3-444A-A809-9FED9058D1ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
