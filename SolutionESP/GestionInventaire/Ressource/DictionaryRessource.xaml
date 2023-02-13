@@ -78,4 +78,12 @@
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
+
+    <Style x:Key="AddModifyTitle" TargetType="Label">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+    
 </ResourceDictionary>
