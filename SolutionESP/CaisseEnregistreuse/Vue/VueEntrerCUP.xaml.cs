@@ -23,5 +23,30 @@ namespace CaisseEnregistreuse.Vue
         {
             InitializeComponent();
         }
+
+        private void AddNumber(string theInput)
+        {
+            CUPText.Text += theInput;
+        }
+
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            AddNumber("1");
+        }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            AddNumber("2");
+        }
+
+        private void Button_Click4(object sender, RoutedEventArgs e)
+        {
+            AddNumber("4");
+        }
+
+        private void Button_Click7(object sender, RoutedEventArgs e)
+        {
+            AddNumber("7");
+        }
     }
 }
