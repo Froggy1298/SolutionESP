@@ -48,5 +48,30 @@ namespace CaisseEnregistreuse.Vue
         {
             AddNumber("7");
         }
+
+        private void Button_Click5(object sender, RoutedEventArgs e)
+        {
+            AddNumber("5");
+        }
+
+        private void Button_Click8(object sender, RoutedEventArgs e)
+        {
+            AddNumber("8");
+        }
+
+        private void Button_Click3(object sender, RoutedEventArgs e)
+        {
+            AddNumber("3");
+        }
+
+        private void Button_Click6(object sender, RoutedEventArgs e)
+        {
+            AddNumber("6");
+        }
+
+        private void Button_Click9(object sender, RoutedEventArgs e)
+        {
+            AddNumber("9");
+        }
     }
 }
