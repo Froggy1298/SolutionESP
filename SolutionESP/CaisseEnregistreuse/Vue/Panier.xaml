@@ -33,7 +33,8 @@
                                 Background="White"
                                 BorderBrush="{StaticResource Yellow}"
                                 BorderThickness="2"
-                                Margin="20,10">
+                                Margin="20,10"
+                                Command="{Binding BoutonEntrerCUP}">
                 <StackPanel Orientation="Horizontal">
                     <fa:FontAwesome Icon="Solid_MagnifyingGlass"
                                                 Margin="10,0"

@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="RelayCommandLibrary">
+      <HintPath>..\ProjectHelper\RelayCommandLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Vue\SuperC1.png" />
   </ItemGroup>
 

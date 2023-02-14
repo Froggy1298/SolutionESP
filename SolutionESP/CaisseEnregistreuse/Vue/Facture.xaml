@@ -1,0 +1,122 @@
+﻿<Window x:Class="CaisseEnregistreuse.Vue.Facture"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
+        mc:Ignorable="d"
+        Title="Facture" Height="550" Width="300">
+    <Window.Resources>
+        <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="125"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" VerticalAlignment="Center"
+              Background="{StaticResource Red}">
+            <Image Margin="0,10" HorizontalAlignment="Left" Source="/Vue/SuperC1.png"></Image>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Label FontSize="15"
+                                   Content="Fruits et légume"/>
+                            <ListView ItemsSource="{Binding InnerList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="50,0,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10*"/>
+                                                <ColumnDefinition Width="50*"/>
+                                                <ColumnDefinition Width="20*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0"
+                                                   Content="3"/>
+                                            <Label Grid.Column="1"
+                                                   Content="Pain au banane"/>
+                                            <Label Grid.Column="3"
+                                                   Content="10.50"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+           
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0"
+                   Grid.Row="0"
+                   HorizontalContentAlignment="Right"
+                   Content="Total Partiel"/>
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   HorizontalContentAlignment="Right"
+                   Content="TVQ"/>
+            <Label Grid.Column="0"
+                   Grid.Row="2"
+                   HorizontalContentAlignment="Right"
+                   Content="TPS"/>
+            <Label Grid.Column="0"
+                   Grid.Row="3"
+                   HorizontalContentAlignment="Right"
+                   Content="Total"/>
+
+            <Label Grid.Column="1"
+                   Grid.Row="0"
+                   HorizontalContentAlignment="Right"
+                   Content="15"/>
+            <Label Grid.Column="1"
+                   Grid.Row="1"
+                   HorizontalContentAlignment="Right"
+                   Content="0.20"/>
+            <Label Grid.Column="1"
+                   Grid.Row="2"
+                   HorizontalContentAlignment="Right"
+                   Content="0.30"/>
+            <Label Grid.Column="1"
+                   Grid.Row="3"
+                   HorizontalContentAlignment="Right"
+                   Content="15.50"/>
+
+            <Label Grid.Column="0"
+                   Grid.Row="5"
+                   Content="Crédit"/>
+
+
+
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Content="Imprimer"/>
+            <Button Grid.Column="1"
+                    Content="Pas de facture"/>
+
+        </Grid>
+    </Grid>
+</Window>

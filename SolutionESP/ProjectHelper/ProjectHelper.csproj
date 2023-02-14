@@ -22,4 +22,10 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="RelayCommandLibrary">
+      <HintPath>..\..\..\..\Source\Repos\Test Custom Pop Up\RelayCommandLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
