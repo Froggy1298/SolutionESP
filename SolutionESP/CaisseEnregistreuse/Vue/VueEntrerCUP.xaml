@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
         xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
         mc:Ignorable="d"
-        Title="VueEntrerCUP" Height="500" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="VueEntrerCUP" Height="500" Width="300" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml">
         </ResourceDictionary>
@@ -18,7 +20,8 @@
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
-              Background="{StaticResource Yellow}">
+              Background="{StaticResource Yellow}"
+              MouseLeftButtonDown="Grid_MouseLeftButtonDown">
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label Content="Veuillez entrer le CUP du produit"
                    FontWeight="Bold"
@@ -51,71 +54,88 @@
                                HorizontalAlignment="Left"
                                Padding="20,0,0,0"
                                FontWeight="Bold"
-                               x:Name="CUPText">
+                               FontSize="15"
+                               x:Name="CUPTextBlock">
                     </TextBlock>
                     
                     <Button Grid.Row="1"
                             Grid.Column="0"
                             BorderThickness="0,1,0,1"
                             Content="1"
-                            Style="{StaticResource NumberButton}" Click="Button_Click1"/>
+                            Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="1"/>
                     <Button Grid.Row="2"
                             Grid.Column="0"
                             BorderThickness="0,0,0,0"
                             Content="4"
-                            Style="{StaticResource NumberButton}" Click="Button_Click4"/>
+                            Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="4"/>
                     <Button Grid.Row="3"
                             Grid.Column="0"
                             BorderThickness="0,1,0,1"
                             Content="7"
-                            Style="{StaticResource NumberButton}" Click="Button_Click7"/>
+                            Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="7"/>
 
                     <Button Grid.Row="1"
                             Grid.Column="1"
                             BorderThickness="1,1,1,1"
                             Content="2"
-                            Style="{StaticResource NumberButton}" Click="Button_Click2"/>
+                            Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="2"/>
                     <Button Grid.Row="2"
                             Grid.Column="1"
                             BorderThickness="1,0,1,0"
                             Content="5"
-                             Style="{StaticResource NumberButton}" Click="Button_Click5"/>
+                             Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="5"/>
                     <Button Grid.Row="3"
                             Grid.Column="1"
                             BorderThickness="1,1,1,1"
                             Content="8"
-                             Style="{StaticResource NumberButton}" Click="Button_Click"/>
+                            Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="8"/>
 
                     <Button Grid.Row="1"
                             Grid.Column="2"
                             BorderThickness="0,1,0,1"
                             Content="3"
-                             Style="{StaticResource NumberButton}" Click="Button_Click3"/>
+                             Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="3"/>
                     <Button Grid.Row="2"
                             Grid.Column="2"
                             BorderThickness="0,0,0,0"
                             Content="6"
-                             Style="{StaticResource NumberButton}" Click="Button_Click6"/>
+                             Style="{StaticResource NumberButton}" 
+                            Click="Button_Click"
+                            Tag="6"/>
                     <Button Grid.Row="3"
                             Grid.Column="2"
                             BorderThickness="0,1,0,1"
                             Content="9"
-                             Style="{StaticResource NumberButton}" Click="Button_Click9"/>
+                            Style="{StaticResource NumberButton}"
+                            Click="Button_Click"
+                            Tag="9"/>
 
                     <Button Grid.Row="4"
                             Grid.Column="1"
                             BorderThickness="1,0,1,0"
                             Content="0"
-                             Style="{StaticResource NumberButton}"/>
+                             Style="{StaticResource NumberButton}"
+                            Click="Button_Click"
+                            Tag="0"/>
                     
                     <Button Grid.Row="4"
                             Grid.Column="2"
-                            VerticalContentAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            Margin="10,10,10,10"
-                             Background="white"
-                            BorderBrush="White"
-                            FontSize="20">
+                            Style="{StaticResource DeleteButton}"
+                            Click="Button_ClickRM">
                         <fa:FontAwesome Icon="Solid_DeleteLeft"/>
                     </Button>
 
@@ -135,7 +155,7 @@
                     Background="White"
                     Content="Annuler"
                     FontWeight="Bold"
-                    FontSize="15">
+                    FontSize="15" Click="Button_ClickAnnuler">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="25"></Setter>
@@ -149,7 +169,7 @@
                     Background="White"
                     Content="Entrer"
                     FontWeight="Bold"
-                    FontSize="15">
+                    FontSize="15" Click="Button_ClickEnter">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="25"></Setter>

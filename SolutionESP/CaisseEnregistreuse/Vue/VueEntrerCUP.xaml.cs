@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,16 @@ namespace CaisseEnregistreuse.Vue
     /// </summary>
     public partial class VueEntrerCUP : Window
     {
+        public enum FinalButtonPressed
+        {
+            None,
+            Entrer,
+            Annuler
+        }
+
+        public string CUP { get; set; }
+        public FinalButtonPressed EnterOrCancel { get; set; }
+
         public VueEntrerCUP()
         {
             InitializeComponent();
@@ -26,52 +37,47 @@ namespace CaisseEnregistreuse.Vue
 
         private void AddNumber(string theInput)
         {
-            CUPText.Text += theInput;
+            CUPTextBlock.Text += theInput;
         }
 
-        private void Button_Click1(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AddNumber("1");
+            if (CUPTextBlock.Text.Length < 12)
+                AddNumber(((Button)sender).Tag.ToString());
         }
 
-        private void Button_Click2(object sender, RoutedEventArgs e)
+        private void Button_ClickRM(object sender, RoutedEventArgs e)
         {
-            AddNumber("2");
+            if (CUPTextBlock.Text.Length != 0)
+                CUPTextBlock.Text = CUPTextBlock.Text.Remove(CUPTextBlock.Text.Length - 1);
         }
 
-        private void Button_Click4(object sender, RoutedEventArgs e)
+        private void Button_ClickEnter(object sender, RoutedEventArgs e)
         {
-            AddNumber("4");
+            if (CUPTextBlock.Text.Length == 12)
+            {
+                CUP = CUPTextBlock.Text;
+                EnterOrCancel = FinalButtonPressed.Entrer;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("CUP non valide", "Erreur");
+            }
         }
 
-        private void Button_Click7(object sender, RoutedEventArgs e)
+        private void Button_ClickAnnuler(object sender, RoutedEventArgs e)
         {
-            AddNumber("7");
+            EnterOrCancel = FinalButtonPressed.Annuler;
+            this.Close();
         }
 
-        private void Button_Click5(object sender, RoutedEventArgs e)
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            AddNumber("5");
-        }
-
-        private void Button_Click8(object sender, RoutedEventArgs e)
-        {
-            AddNumber("8");
-        }
-
-        private void Button_Click3(object sender, RoutedEventArgs e)
-        {
-            AddNumber("3");
-        }
-
-        private void Button_Click6(object sender, RoutedEventArgs e)
-        {
-            AddNumber("6");
-        }
-
-        private void Button_Click9(object sender, RoutedEventArgs e)
-        {
-            AddNumber("9");
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
         }
     }
 }

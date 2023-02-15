@@ -1,4 +1,5 @@
-﻿using ProjectHelper.ViewModel;
+﻿using CaisseEnregistreuse.Vue;
+using ProjectHelper.ViewModel;
 using RelayCommandLibrary;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,13 @@ namespace CaisseEnregistreuse.ViewModel
         public RelayCommand BoutonEntrerCUP { get; set; }
         public void EntrerCUP_Execute(object? _)
         {
-            MessageBox.Show("Test2");
-            alloa = "CALIS";
+            VueEntrerCUP EnterCUP = new VueEntrerCUP();
+            EnterCUP.ShowDialog();
+
+
+
+            if (EnterCUP.EnterOrCancel == VueEntrerCUP.FinalButtonPressed.Entrer)
+                MessageBox.Show(EnterCUP.CUP);
         }
         public bool EntrerCUP_CanExecute(object? _)
         {

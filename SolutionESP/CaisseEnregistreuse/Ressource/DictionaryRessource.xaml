@@ -7,6 +7,7 @@
     <SolidColorBrush x:Key="Red" Color="#d71100"/>
     <SolidColorBrush x:Key="Gray" Color="#aaada8"/>
     <SolidColorBrush x:Key="Green" Color="#01953f"/>
+    <SolidColorBrush x:Key="LightGreen" Color="#01953f" Opacity="0.5"/>
 
     <Style x:Key="HorizontalLogo" TargetType="Image">
         <Setter Property="Source" Value="/Ressource/Image/SuperC1.png"/>
@@ -17,7 +18,54 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="BorderBrush" Value="{StaticResource Yellow}"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{StaticResource Yellow}" BorderThickness="1">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource LightGreen}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
+
+    <Style x:Key="DeleteButton" TargetType="Button">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="white"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="0,0,25,0">
+                        <ContentPresenter x:Name="contentPresenter"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource LightGreen}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
     <Style x:Key="PanierText" TargetType="Label">
         <Setter Property="FontSize" Value="15"/>
