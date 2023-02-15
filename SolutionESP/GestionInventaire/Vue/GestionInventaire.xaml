@@ -101,7 +101,8 @@
                                Content="Date de fin: "/>
 
                         <Grid Grid.Row="3" Grid.ColumnSpan="2">
-                            
+                            <Frame NavigationUIVisibility="Hidden" Source="/Vue/Hebdomadaire.xaml"/>
+
                         </Grid>
                     </Grid>
                     

@@ -27,6 +27,12 @@ namespace CaisseEnregistreuse.ViewModel
         public ICollection<Tblproduitfacture> ProduitPanier { get; set; }
         public A22Sda2031887Context BdContext { get; set; }
 
+
+        public RelayCommand BoutonRMProduitPanier { get; set; }
+
+
+
+
         public RelayCommand BoutonEntrerCUP { get; set; }
         public void EntrerCUP_Execute(object? _)
         {

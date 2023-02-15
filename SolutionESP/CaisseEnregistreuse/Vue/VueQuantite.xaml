@@ -4,16 +4,73 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
+        xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
         mc:Ignorable="d"
-        Title="VueQuantite" Height="150" Width="200"
+        Title="VueQuantite" Height="175" Width="300"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" >
     <Window.Resources>
         <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml">
         </ResourceDictionary>
     </Window.Resources>
-    <Border CornerRadius="25" BorderBrush="Black" BorderThickness="2" Padding="6" Background="GhostWhite">
+    <Border CornerRadius="25" 
+            BorderBrush="Black" 
+            BorderThickness="2"
+            Background="GhostWhite">
         <Grid>
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="75"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+                    Background="{StaticResource Gray}"
+                    CornerRadius="25,25,0,0">
+                <Label VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       FontSize="20"
+                       Content="Entrer la quantité"/>
+
+            </Border>
+
+            <TextBox Grid.Row="1" Grid.ColumnSpan="3"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     FontSize="20"
+                     IsHitTestVisible="False"
+                     x:Name="QuantityTextBox"/>
+
+
+
+            <Button Grid.Column="2"
+                    Grid.Row="2"
+                    Style="{StaticResource RightButton}" Click="Button_ClickAdd">
+                <fa:FontAwesome Icon="Solid_Plus"
+                                FontSize="25"/>
+            </Button>
+
+            <Button Grid.Column="0"
+                    Grid.Row="2"
+                    Style="{StaticResource LeftButton}"  Click="Button_ClickRM">
+                <fa:FontAwesome Icon="Solid_Minus"
+                                FontSize="25"/>
+            </Button>
+
+
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource EnterButton}"
+                    Content="Entrer" Click="Button_Click"/>
+
+
         </Grid>
     </Border>
 </Window>

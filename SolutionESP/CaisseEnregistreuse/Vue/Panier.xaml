@@ -96,7 +96,9 @@
                                         FontSize="30"
                                         Foreground="Red"
                                         BorderThickness="0"
-                                        Margin="0,1">
+                                        Margin="0,1"
+                                        Command="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType=ListView}, Path=DataContext.BoutonRMProduitPanier}"
+                                        CommandParameter="{}">
                                     <fa:FontAwesome Icon="Solid_Xmark"/>
                                 </Button>
                             </Grid>
