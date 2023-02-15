@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjetHelper.Models;
 
-namespace ProjetHelper.Models;
+namespace ProjectHelper.Models.ModelsProduit;
 
 public partial class Tblproduit
 {
@@ -9,7 +10,7 @@ public partial class Tblproduit
 
     public int IdDepartement { get; set; }
 
-    public int Cup { get; set; }
+    public long Cup { get; set; }
 
     public string Nom { get; set; } = null!;
 

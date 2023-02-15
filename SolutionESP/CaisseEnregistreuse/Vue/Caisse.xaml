@@ -117,6 +117,7 @@
                         BorderBrush="{StaticResource Yellow}"
                         Background="{StaticResource Green}"
                         BorderThickness="2"
+                        Foreground="White"
                         Command="{Binding BoutonPayer}">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -125,9 +126,11 @@
                     </Button.Resources>
                     <StackPanel Orientation="Horizontal">
                         <Label Style="{StaticResource PanierText}"
-                               Content="Payer"/>
+                               Content="Payer"
+                               Foreground="White"/>
                         <Label Style="{StaticResource PanierText}"
-                               Content="3,47$"/>
+                               Content="3,47$"
+                               Foreground="White"/>
                         <fa:FontAwesome Icon="Solid_ArrowRight"
                                     VerticalAlignment="Center"
                                     FontSize="20"

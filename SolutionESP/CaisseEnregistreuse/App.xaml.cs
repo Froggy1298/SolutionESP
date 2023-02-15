@@ -21,6 +21,9 @@ namespace CaisseEnregistreuse
             Window startWindow = new CaisseEnregistreuse.Vue.Caisse();
             startWindow.DataContext = new MainVueModel();
             startWindow.Show();
+
+            //Window test = new CaisseEnregistreuse.Vue.VueQuantite();  
+            //test.Show();
         }
 
     }

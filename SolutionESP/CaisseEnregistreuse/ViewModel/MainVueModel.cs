@@ -27,7 +27,7 @@ namespace CaisseEnregistreuse.ViewModel
         public RelayCommand BoutonPayer { get; set; }
         public void Payer_Execute(object? _)
         {
-            MessageBox.Show(panierVm.alloa);
+
         }
         public bool Payer_CanExecute(object? _)
         {
