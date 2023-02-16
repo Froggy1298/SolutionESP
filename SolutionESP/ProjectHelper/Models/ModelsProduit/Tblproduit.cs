@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjectHelper.Models.ModelsProduitFacture;
 using ProjetHelper.Models;
 
 namespace ProjectHelper.Models.ModelsProduit;
@@ -14,7 +15,7 @@ public partial class Tblproduit
 
     public string Nom { get; set; } = null!;
 
-    public int QteInventaire { get; set; }
+    public decimal QteInventaire { get; set; }
 
     public decimal Prix { get; set; }
 

@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
       xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
+      xmlns:vm="clr-namespace:CaisseEnregistreuse.ViewModel"
+      d:DataContext="{d:DesignInstance vm:PanierVueModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Panier">
@@ -48,12 +50,12 @@
             </Button>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView>
+            <ListView ItemsSource="{Binding LesProduitsPaniers}" 
+                      HorizontalContentAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource NoHoverStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="50"
-                                BorderThickness="0,1"
-                                BorderBrush="Black">
+                        <Border Height="50" BorderBrush="Black" BorderThickness="1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="70*"/>
@@ -62,23 +64,24 @@
                                     <ColumnDefinition Width="20*"/>
                                     <ColumnDefinition Width="15*"/>
                                 </Grid.ColumnDefinitions>
-
-                                <Label Grid.Column="0" 
-                                        Style="{StaticResource PanierText}"
-                                        Content="Pain blanc"/>
+                                
+                                    <Label Grid.Column="0" 
+                                           Style="{StaticResource PanierText}"
+                                           Content="{Binding Product.Nom}"/>
 
                                 <StackPanel Grid.Column="1"
                                             Orientation="Horizontal"
                                             HorizontalAlignment="Right">
 
                                     <Label Style="{StaticResource PanierText}" 
-                                            Content="3"/>
+                                           Content="{Binding NbFoisCommandee}"/>
 
                                     <Label Style="{StaticResource PanierText}"
-                                            Content="x"/>
+                                           Content="x"/>
 
                                     <Label Style="{StaticResource PanierText}"
-                                           Content="3,99"/>
+                                           Content="{Binding CoutProduit}"/>
+                                    
                                 </StackPanel>
 
                                 <GridSplitter Grid.Column="2"
@@ -89,7 +92,7 @@
 
                                 <Label Grid.Column="3"
                                        Style="{StaticResource PanierText}"
-                                       Content="3,47$"/>
+                                       Content="{Binding CoutTotal, StringFormat={}{0}$}"/>
 
                                 <Button Grid.Column="4"
                                         Background="Transparent"
@@ -97,10 +100,12 @@
                                         Foreground="Red"
                                         BorderThickness="0"
                                         Margin="0,1"
-                                        Command="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType=ListView}, Path=DataContext.BoutonRMProduitPanier}"
-                                        CommandParameter="{}">
+                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}},  Path=DataContext.BoutonRMProduitPanier }"
+                                        CommandParameter="{Binding Product.IdProduit}">
                                     <fa:FontAwesome Icon="Solid_Xmark"/>
                                 </Button>
+
+
                             </Grid>
                         </Border>
                     </DataTemplate>

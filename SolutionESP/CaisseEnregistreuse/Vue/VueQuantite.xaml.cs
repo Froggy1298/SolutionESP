@@ -27,7 +27,7 @@ namespace CaisseEnregistreuse.Vue
             QuantityTextBox.Text = "1";
         }
 
-        public double QuantityFinal { get; set; }
+        public decimal QuantityFinal { get; set; }
         public bool IsVentePoids { get; set; }
 
 
@@ -40,40 +40,69 @@ namespace CaisseEnregistreuse.Vue
             }
         }
 
+        private void Button_ClickAddMore(object sender, RoutedEventArgs e)
+        {
+            decimal tempDouble = GetDoubleValueQuantity();
+            if (IsVentePoids)
+                tempDouble += 1;
+            else
+                tempDouble += 5;
+
+            QuantityTextBox.Text = (Math.Round(tempDouble, 1)).ToString();
+        }
+
         private void Button_ClickAdd(object sender, RoutedEventArgs e)
         {
-            double tempDouble = GetDoubleValueQuantity();
+            decimal tempDouble = GetDoubleValueQuantity();
             if (IsVentePoids)
-                tempDouble += 0.1;
+                tempDouble += 0.1m;
             else
                 tempDouble += 1;
 
             QuantityTextBox.Text = (Math.Round(tempDouble, 1)).ToString();
         }
 
+
+        private void Button_ClickRMMore(object sender, RoutedEventArgs e)
+        {
+            decimal tempDouble = GetDoubleValueQuantity();
+
+            //Si le produit se vends au poids et ci celui-ci est n'est pas égal à 1
+            if (IsVentePoids && !(tempDouble <= 1))
+                tempDouble -= 1;
+            else if (!(tempDouble <= 5))
+                tempDouble -= 5;
+
+            QuantityTextBox.Text = (Math.Round(tempDouble, 1)).ToString();
+        }
+
         private void Button_ClickRM(object sender, RoutedEventArgs e)
         {
-            double tempDouble = GetDoubleValueQuantity();
+            decimal tempDouble = GetDoubleValueQuantity();
 
             //Si le produit se vends au poids et ci celui-ci est n'est pas égal à 0.10
-            if (IsVentePoids && !(tempDouble == 0.1))
-                tempDouble -= 0.1;
+            if (IsVentePoids && !(tempDouble <= 0.1m))
+                tempDouble -= 0.1m;
             else if (!(tempDouble <= 1))
                 tempDouble -= 1;
 
             QuantityTextBox.Text = (Math.Round(tempDouble, 1)).ToString();
         }
+
+       
         private void Button_ClickEnter(object sender, RoutedEventArgs e)
         {
             QuantityFinal = GetDoubleValueQuantity();
+            this.Close();
         }
 
-        public double GetDoubleValueQuantity()
+        public decimal GetDoubleValueQuantity()
         {
-            double tempDouble;
-            double.TryParse(QuantityTextBox.Text, out tempDouble);
+            decimal tempDouble;
+            decimal.TryParse(QuantityTextBox.Text, out tempDouble);
             return tempDouble;
         }
 
+       
     }
 }

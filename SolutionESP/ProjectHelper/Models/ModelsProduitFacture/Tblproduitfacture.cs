@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using ProjectHelper.Models.ModelsProduit;
+using ProjetHelper.Models;
 
-namespace ProjetHelper.Models;
+namespace ProjectHelper.Models.ModelsProduitFacture;
 
 public partial class Tblproduitfacture
 {
@@ -11,14 +12,11 @@ public partial class Tblproduitfacture
 
     public int IdProduit { get; set; }
 
-    [NotMapped]
-    public Tblproduit Produit { get; set; }
-
     public int IdFacture { get; set; }
 
-    public int? NbFoisCommandee { get; set; }
+    public decimal? NbFoisCommandee { get; set; }
 
-    public decimal? CoutTotal { get; set; }
+    public decimal? CoutProduit { get; set; }
 
     public virtual Tblfacture IdFactureNavigation { get; set; } = null!;
 

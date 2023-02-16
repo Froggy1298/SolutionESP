@@ -144,6 +144,16 @@
         </Setter>
     </Style>
 
+    <Style x:Key="NoHoverStyle" TargetType="ListViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ContentPresenter  Margin="2,2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <Style x:Key="PanierText" TargetType="Label">
         <Setter Property="FontSize" Value="15"/>

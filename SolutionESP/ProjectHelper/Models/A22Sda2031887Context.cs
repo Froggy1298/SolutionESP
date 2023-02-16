@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ProjectHelper.Models.ModelsProduit;
+using ProjectHelper.Models.ModelsProduitFacture;
 
 namespace ProjetHelper.Models;
 
@@ -118,7 +119,7 @@ public partial class A22Sda2031887Context : DbContext
             entity.HasIndex(e => e.IdProduit, "idProduit_idx");
 
             entity.Property(e => e.IdProduitFacture).HasColumnName("idProduitFacture");
-            entity.Property(e => e.CoutTotal)
+            entity.Property(e => e.CoutProduit)
                 .HasPrecision(6, 2)
                 .HasDefaultValueSql("'0.00'")
                 .HasColumnName("coutTotal");

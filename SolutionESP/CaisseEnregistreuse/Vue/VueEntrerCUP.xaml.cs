@@ -33,6 +33,7 @@ namespace CaisseEnregistreuse.Vue
         public VueEntrerCUP()
         {
             InitializeComponent();
+            this.Topmost = true;
         }
 
         private void AddNumber(string theInput)

@@ -13,17 +13,20 @@ using System.Windows;
 
 namespace CaisseEnregistreuse.ViewModel
 {
-    class MainVueModel : BaseViewModel
+    public class MainVueModel : BaseViewModel
     {
         public MainVueModel()
         {
             BoutonPayer = new RelayCommand(Payer_Execute, Payer_CanExecute);
             View = new Panier();
-            panierVm = new PanierVueModel();
-            View.DataContext = panierVm;
+            PanierVm = new PanierVueModel();
+            View.DataContext = PanierVm;
         }
 
-        public PanierVueModel panierVm;
+
+
+        public PanierVueModel PanierVm { get; set; }
+        
         public RelayCommand BoutonPayer { get; set; }
         public void Payer_Execute(object? _)
         {
@@ -34,13 +37,14 @@ namespace CaisseEnregistreuse.ViewModel
             return true;
         }
 
-
-
         private Page view; public Page View
         {
             get { return view; }
             set { view = value; OnPropertyChanged(); }
         }
+
+       
+
 
     }
 }
