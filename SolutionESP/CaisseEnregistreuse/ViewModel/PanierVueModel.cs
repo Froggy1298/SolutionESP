@@ -17,12 +17,15 @@ using System.Collections.ObjectModel;
 using System.Security.Policy;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace CaisseEnregistreuse.ViewModel
 {
     public class PanierVueModel : BaseViewModel
     {
 
+        const decimal TVQ = 0.09975m;
+        const decimal TPS = 0.05m;
 
         public PanierVueModel()
         {
@@ -42,7 +45,37 @@ namespace CaisseEnregistreuse.ViewModel
                 return LesProduitsPaniers.Count;
             }
         }
+        public decimal TotalPartiel
+        {
+            get
+            {
+                return Math.Round(LesProduitsPaniers.Sum(x => x.Product.Prix * (decimal)x.NbFoisCommandee),2);
+            }
+        }
+        public decimal TotalTVQ
+        {
+            get
+            {
+                return Math.Round((LesProduitsPaniers.Where(x => x.Product.Tvq == true)).Sum(x => (x.Product.Prix * (decimal)x.NbFoisCommandee) * TVQ),2);
+            }
+        }
+        public decimal TotalTPS
+        {
+            get
+            {
+                return Math.Round((LesProduitsPaniers.Where(x => x.Product.Tps == true)).Sum(x => (x.Product.Prix * (decimal)x.NbFoisCommandee) * TPS), 2);
+            }
+        }
+        public decimal Total
+        {
+            get
+            {
+                return Math.Round(TotalPartiel + TotalTPS + TotalTVQ, 2);
+            }
+        }
 
+
+        #region Le bouton pour enlever un produit du panier
         public RelayCommand BoutonRMProduitPanier { get; set; }
         public void RMProduitPanier_Execute(object? parameter)
         {
@@ -52,6 +85,7 @@ namespace CaisseEnregistreuse.ViewModel
         {
             return true;
         }
+        #endregion
 
 
         public RelayCommand BoutonEntrerCUP { get; set; }
@@ -113,11 +147,22 @@ namespace CaisseEnregistreuse.ViewModel
 
 
 
-                //ICCITTE 
+                //ICCITTE que tu vérifie la quantité produit
+                //ICCITTE que tu vérifie si le produit est déja là
                 ProduitPanierDTO theProduct = ProduitPanierDTO.ProduitToDTO(produit);
 
                 LesProduitsPaniers.Add(new ProduitFacturePanierDTO(theProduct, quantiteProduit, theProduct.Prix));
-                OnPropertyChanged(nameof(QteProduitPanier));
+                OnPropertyChanged(nameof(QteProduitPanier));              
+                OnPropertyChanged(nameof(TotalPartiel));
+                OnPropertyChanged(nameof(TotalTVQ));
+                OnPropertyChanged(nameof(TotalTPS));
+                OnPropertyChanged(nameof(Total));
+
+                var test = TotalPartiel;
+                var test1 = TotalTVQ;
+                var test2 = TotalTPS;
+                var test3 = Total;
+
 
                 return true;
             }
