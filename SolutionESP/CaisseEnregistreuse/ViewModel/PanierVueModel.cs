@@ -64,6 +64,7 @@ namespace CaisseEnregistreuse.ViewModel
                 return;
 
             long intCUP;
+
             if (long.TryParse(enterCUP.CUP, out intCUP))
                 AddProductToPanierAsync(intCUP);
 
@@ -75,10 +76,10 @@ namespace CaisseEnregistreuse.ViewModel
 
         private Task<Tblproduit?> SearchProduct(long CUP)
         {
-           return BdContext.Tblproduits.Where(x => x.Cup == CUP).FirstOrDefaultAsync();
+           return BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUP);
         }
 
-        private async Task<bool> AddProductToPanierAsync(long intCUP)
+        private async Task<bool> AddProductToPanierAsync(long CUPProduit)
         {
             try
             {
@@ -91,16 +92,29 @@ namespace CaisseEnregistreuse.ViewModel
                 //Si non affficher erreur
 
 
-    
-                Task searchProductTask = SearchProduct(intCUP);
+                //Regarder avec Patrik le theme des cornerRadius
 
 
-                VueQuantite vueQuantite = new VueQuantite(true);
-               
+
+                Tblproduit produit = BdContext.Tblproduits.FirstOrDefault(x => x.Cup == CUPProduit);
+
+                if(produit is null)
+                {
+                    MessageBox.Show("Produit entré non trouvé", "Non trouvé");
+                    return false;
+                }
+
+                VueQuantite vueQuantite = new VueQuantite(Convert.ToBoolean(produit.VentePoids));
                 vueQuantite.ShowDialog();
+                
+               
                 decimal quantiteProduit = vueQuantite.QuantityFinal;
 
-                ProduitPanierDTO theProduct = 
+
+
+
+                //ICCITTE 
+                ProduitPanierDTO theProduct = ProduitPanierDTO.ProduitToDTO(produit);
 
                 LesProduitsPaniers.Add(new ProduitFacturePanierDTO(theProduct, quantiteProduit, theProduct.Prix));
                 OnPropertyChanged(nameof(QteProduitPanier));

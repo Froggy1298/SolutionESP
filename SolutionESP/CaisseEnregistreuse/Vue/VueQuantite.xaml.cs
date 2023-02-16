@@ -24,6 +24,21 @@ namespace CaisseEnregistreuse.Vue
         {
             InitializeComponent();
             IsVentePoids = isVentePoids;
+            if (isVentePoids)
+            {
+                Add.Content = "0.1";
+                AddMore.Content = "1";
+                Rm.Content = "0.1";
+                RmMore.Content = "1";
+            }
+            else
+            {
+                Add.Content = "1";
+                AddMore.Content = "5";
+                Rm.Content = "1";
+                RmMore.Content = "5";
+            }
+
             QuantityTextBox.Text = "1";
         }
 

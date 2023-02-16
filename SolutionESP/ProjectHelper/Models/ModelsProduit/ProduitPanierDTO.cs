@@ -19,7 +19,7 @@ namespace ProjectHelper.Models.ModelsProduit
 
         public bool Tvq { get; set; }
 
-        public static ProduitPanierDTO IngredientToDTO(Tblproduit p)
+        public static ProduitPanierDTO ProduitToDTO(Tblproduit p)
         {
             return new ProduitPanierDTO
             {
