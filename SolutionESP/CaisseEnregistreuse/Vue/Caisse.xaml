@@ -67,8 +67,8 @@
                         <RowDefinition Height="25*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70*"/>
-                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="45*"/>
                     </Grid.ColumnDefinitions>
 
                     <GridSplitter Grid.Row="1" Style="{StaticResource GridSplitterFacture}"/>
@@ -119,7 +119,8 @@
                         Background="{StaticResource Green}"
                         BorderThickness="2"
                         Foreground="White"
-                        Command="{Binding BoutonPayer}">
+                        Command="{Binding BoutonPayer}"
+                        Visibility="{Binding PayerBouttonVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="25"></Setter>

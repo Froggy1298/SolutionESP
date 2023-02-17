@@ -44,21 +44,23 @@ namespace CaisseEnregistreuse.ViewModel
         {
             get
             {
-                return LesProduitsPaniers.Count;
+                int sumVentePoidT = LesProduitsPaniers.Where(x => x.Product.VentePoids == true).Count();
+                int sumVentePoidF = LesProduitsPaniers.Where(x => x.Product.VentePoids == false).Sum(x => (int)x.NbFoisCommandee);
+                return sumVentePoidF + sumVentePoidT;
             }
         }
         public decimal TotalPartiel
         {
             get
             {
-                return Math.Round(LesProduitsPaniers.Sum(x => x.Product.Prix * (decimal)x.NbFoisCommandee),2);
+                return Math.Round(LesProduitsPaniers.Sum(x => x.Product.Prix * (decimal)x.NbFoisCommandee), 2);
             }
         }
         public decimal TotalTVQ
         {
             get
             {
-                return Math.Round((LesProduitsPaniers.Where(x => x.Product.Tvq == true)).Sum(x => (x.Product.Prix * (decimal)x.NbFoisCommandee) * TVQ),2);
+                return Math.Round((LesProduitsPaniers.Where(x => x.Product.Tvq == true)).Sum(x => (x.Product.Prix * (decimal)x.NbFoisCommandee) * TVQ), 2);
             }
         }
         public decimal TotalTPS
@@ -82,7 +84,17 @@ namespace CaisseEnregistreuse.ViewModel
         public RelayCommand BoutonRMProduitPanier { get; set; }
         public void RMProduitPanier_Execute(object? parameter)
         {
-            LesProduitsPaniers.Remove(LesProduitsPaniers.FirstOrDefault(x => x.Product.IdProduit == (int)parameter));
+            var tempProduitPanier = LesProduitsPaniers.FirstOrDefault(x => x.Product.IdProduit == (int)parameter);
+            if (tempProduitPanier.Product.VentePoids)
+                LesProduitsPaniers.Remove(tempProduitPanier);
+            else
+            {
+                if (tempProduitPanier.NbFoisCommandee == 1)
+                    LesProduitsPaniers.Remove(tempProduitPanier);
+                else
+                    tempProduitPanier.NbFoisCommandee -= 1;
+            }
+            UpdateAllPrice();
         }
         public bool RMProduitPanier_CanExecute(object? _)
         {
@@ -134,7 +146,7 @@ namespace CaisseEnregistreuse.ViewModel
 
                 Tblproduit produit = await BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUPProduit);
 
-                if(produit is null)
+                if (produit is null)
                 {
                     MessageBox.Show("Produit entré non trouvé", "Non trouvé");
                     return false;
@@ -142,28 +154,28 @@ namespace CaisseEnregistreuse.ViewModel
 
                 VueQuantite vueQuantite = new VueQuantite(Convert.ToBoolean(produit.VentePoids));
                 vueQuantite.ShowDialog();
-                
-               
+
+
                 decimal quantiteProduit = vueQuantite.QuantityFinal;
 
                 ProduitFacturePanierDTO tempsProduitFacture = LesProduitsPaniers.Where(x => x.Product.Cup == produit.Cup).FirstOrDefault();
-                
+
                 if (tempsProduitFacture is not null)
                 {
                     decimal newQuantity = quantiteProduit + (decimal)tempsProduitFacture.NbFoisCommandee;
                     //Vérifie si la nouvelle quantité est assez pour l'inventaire actuel
-                    if(produit.QteInventaire < newQuantity)
+                    if (produit.QteInventaire < newQuantity)
                     {
                         MessageBox.Show("Quantité inventaire insuffisante", "Erreur quantité");
                         return false;
                     }
-                    tempsProduitFacture.NbFoisCommandee= newQuantity;
+                    tempsProduitFacture.NbFoisCommandee = newQuantity;
                     UpdateAllPrice();
                     return true;
                 }
                 else
                 {
-                    if(produit.QteInventaire < quantiteProduit)
+                    if (produit.QteInventaire < quantiteProduit)
                     {
                         MessageBox.Show("Quantité inventaire insuffisante", "Erreur quantité");
                         return false;
@@ -172,6 +184,7 @@ namespace CaisseEnregistreuse.ViewModel
 
                     LesProduitsPaniers.Add(new ProduitFacturePanierDTO(dtoProduitFacture, quantiteProduit, produit.Prix));
                     UpdateAllPrice();
+
                     return true;
                 }
             }

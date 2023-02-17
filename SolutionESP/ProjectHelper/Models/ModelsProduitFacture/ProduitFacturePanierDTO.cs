@@ -24,7 +24,18 @@ namespace ProjectHelper.Models.ModelsProduitFacture
         private decimal? nbFoisCommandee; public decimal? NbFoisCommandee
         {
             get { return nbFoisCommandee; }
-            set { nbFoisCommandee = value; OnPropertyChanged(); OnPropertyChanged(nameof(CoutTotal)); }
+            set { nbFoisCommandee = value; OnPropertyChanged(nameof(FORMATNbFoisCommandee)); OnPropertyChanged(nameof(CoutTotal)); }
+        }
+
+        public string FORMATNbFoisCommandee
+        {
+            get
+            {
+                if (Product.VentePoids)
+                    return nbFoisCommandee + "lb";
+                else
+                    return nbFoisCommandee.ToString();
+            }
         }
 
         //public decimal? NbFoisCommandee { get; set; }

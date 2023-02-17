@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
         xmlns:fa="http://schemas.fontawesome.com/icons/fonts"
         mc:Ignorable="d"
-        Title="VueQuantite" Height="175" Width="325"
+        Title="VueQuantite" Height="200" Width="350"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" >
     <Window.Resources>
         <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml">
@@ -94,6 +94,7 @@
 
             <Button Grid.Row="2"
                     Grid.Column="2"
+                    FontSize="15"
                     Style="{StaticResource EnterButton}"
                     Content="Entrer" 
                     Click="Button_ClickEnter"/>
