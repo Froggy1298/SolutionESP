@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using ProjectHelper.Models.ModelsProduit;
 using ProjectHelper.Models.ModelsProduitFacture;
+using ProjectHelper.ViewModel;
 
 namespace ProjectHelper.Models.ModelsProduitFacture
 {
-    public class ProduitFacturePanierDTO
+    public class ProduitFacturePanierDTO : BaseViewModel
     {
         public ProduitFacturePanierDTO(ProduitPanierDTO product, decimal? nbFoisCommandee, decimal? coutProduit)
         {
@@ -19,7 +20,14 @@ namespace ProjectHelper.Models.ModelsProduitFacture
         }
 
         public ProduitPanierDTO Product { get; set; }
-        public decimal? NbFoisCommandee { get; set; }
+
+        private decimal? nbFoisCommandee; public decimal? NbFoisCommandee
+        {
+            get { return nbFoisCommandee; }
+            set { nbFoisCommandee = value; OnPropertyChanged(); OnPropertyChanged(nameof(CoutTotal)); }
+        }
+
+        //public decimal? NbFoisCommandee { get; set; }
         public decimal? CoutProduit { get; set; }
 
         public decimal CoutTotal

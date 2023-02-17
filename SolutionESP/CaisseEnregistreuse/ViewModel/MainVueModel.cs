@@ -34,7 +34,7 @@ namespace CaisseEnregistreuse.ViewModel
         }
         public bool Payer_CanExecute(object? _)
         {
-            return true;
+            return PanierVm.QteProduitPanier != 0;
         }
 
         private Page view; public Page View

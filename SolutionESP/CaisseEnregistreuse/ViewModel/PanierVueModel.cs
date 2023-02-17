@@ -32,12 +32,14 @@ namespace CaisseEnregistreuse.ViewModel
             BoutonEntrerCUP = new RelayCommand(EntrerCUP_Execute, EntrerCUP_CanExecute);
             BoutonRMProduitPanier = new RelayCommand(RMProduitPanier_Execute, RMProduitPanier_CanExecute);
             BdContext = new A22Sda2031887Context();
+            BdContext.Tblproduits.Load();
             LesProduitsPaniers = new ObservableCollection<ProduitFacturePanierDTO>();
         }
 
-
         public ObservableCollection<ProduitFacturePanierDTO> LesProduitsPaniers { get; set; }
         public A22Sda2031887Context BdContext { get; set; }
+
+        #region Pour les prix à droite
         public int QteProduitPanier
         {
             get
@@ -73,6 +75,7 @@ namespace CaisseEnregistreuse.ViewModel
                 return Math.Round(TotalPartiel + TotalTPS + TotalTVQ, 2);
             }
         }
+        #endregion
 
 
         #region Le bouton pour enlever un produit du panier
@@ -107,10 +110,13 @@ namespace CaisseEnregistreuse.ViewModel
         {
             return true;
         }
-
-        private Task<Tblproduit?> SearchProduct(long CUP)
+        private void UpdateAllPrice()
         {
-           return BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUP);
+            OnPropertyChanged(nameof(QteProduitPanier));
+            OnPropertyChanged(nameof(TotalPartiel));
+            OnPropertyChanged(nameof(TotalTVQ));
+            OnPropertyChanged(nameof(TotalTPS));
+            OnPropertyChanged(nameof(Total));
         }
 
         private async Task<bool> AddProductToPanierAsync(long CUPProduit)
@@ -126,11 +132,7 @@ namespace CaisseEnregistreuse.ViewModel
                 //Si non affficher erreur
 
 
-                //Regarder avec Patrik le theme des cornerRadius
-
-
-
-                Tblproduit produit = BdContext.Tblproduits.FirstOrDefault(x => x.Cup == CUPProduit);
+                Tblproduit produit = await BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUPProduit);
 
                 if(produit is null)
                 {
@@ -144,27 +146,34 @@ namespace CaisseEnregistreuse.ViewModel
                
                 decimal quantiteProduit = vueQuantite.QuantityFinal;
 
+                ProduitFacturePanierDTO tempsProduitFacture = LesProduitsPaniers.Where(x => x.Product.Cup == produit.Cup).FirstOrDefault();
+                
+                if (tempsProduitFacture is not null)
+                {
+                    decimal newQuantity = quantiteProduit + (decimal)tempsProduitFacture.NbFoisCommandee;
+                    //Vérifie si la nouvelle quantité est assez pour l'inventaire actuel
+                    if(produit.QteInventaire < newQuantity)
+                    {
+                        MessageBox.Show("Quantité inventaire insuffisante", "Erreur quantité");
+                        return false;
+                    }
+                    tempsProduitFacture.NbFoisCommandee= newQuantity;
+                    UpdateAllPrice();
+                    return true;
+                }
+                else
+                {
+                    if(produit.QteInventaire < quantiteProduit)
+                    {
+                        MessageBox.Show("Quantité inventaire insuffisante", "Erreur quantité");
+                        return false;
+                    }
+                    ProduitPanierDTO dtoProduitFacture = ProduitPanierDTO.ProduitToDTO(produit);
 
-
-
-                //ICCITTE que tu vérifie la quantité produit
-                //ICCITTE que tu vérifie si le produit est déja là
-                ProduitPanierDTO theProduct = ProduitPanierDTO.ProduitToDTO(produit);
-
-                LesProduitsPaniers.Add(new ProduitFacturePanierDTO(theProduct, quantiteProduit, theProduct.Prix));
-                OnPropertyChanged(nameof(QteProduitPanier));              
-                OnPropertyChanged(nameof(TotalPartiel));
-                OnPropertyChanged(nameof(TotalTVQ));
-                OnPropertyChanged(nameof(TotalTPS));
-                OnPropertyChanged(nameof(Total));
-
-                var test = TotalPartiel;
-                var test1 = TotalTVQ;
-                var test2 = TotalTPS;
-                var test3 = Total;
-
-
-                return true;
+                    LesProduitsPaniers.Add(new ProduitFacturePanierDTO(dtoProduitFacture, quantiteProduit, produit.Prix));
+                    UpdateAllPrice();
+                    return true;
+                }
             }
             catch (Exception ex)
             {

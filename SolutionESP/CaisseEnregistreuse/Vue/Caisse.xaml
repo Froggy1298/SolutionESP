@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:CaisseEnregistreuse.ViewModel"
         d:DataContext="{d:DesignInstance vm:MainVueModel}"
         mc:Ignorable="d"
-        Title="Caisse" Height="600" Width="800">
+        Title="Caisse" Height="600" Width="850" MinWidth="850" MinHeight="600">
     <Window.Resources>
         <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml"/>
     </Window.Resources>
@@ -81,8 +81,8 @@
                            Content="Total partiel"/>
                     <Label Grid.Row="0"
                            Grid.Column="1"
-                           Style="{StaticResource PanierText}"
-                           Content="3,45$"/>
+                           Style="{StaticResource PanierTextDollardSign}"
+                           Content="{Binding PanierVm.TotalPartiel}"/>
 
                     <Label Grid.Row="2"
                            Grid.Column="0"
@@ -90,8 +90,8 @@
                            Content="TPS"/>
                     <Label Grid.Row="2"
                            Grid.Column="1"
-                           Style="{StaticResource PanierText}"
-                           Content="0,45$"/>
+                           Style="{StaticResource PanierTextDollardSign}"
+                           Content="{Binding PanierVm.TotalTPS}"/>
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
@@ -99,8 +99,8 @@
                            Content="TVQ"/>
                     <Label Grid.Row="4"
                            Grid.Column="1"
-                           Style="{StaticResource PanierText}"
-                           Content="0,55$"/>
+                           Style="{StaticResource PanierTextDollardSign}"
+                           Content="{Binding PanierVm.TotalTVQ}"/>
                     
                     <Label Grid.Row="6"
                            Grid.Column="0"
@@ -108,8 +108,8 @@
                            Content="Total"/>
                     <Label Grid.Row="6"
                            Grid.Column="1"
-                           Style="{StaticResource PanierText}"
-                           Content="0,47$"/>
+                           Style="{StaticResource PanierTextDollardSign}"
+                           Content="{Binding PanierVm.Total}"/>
                 </Grid>
 
 
@@ -129,8 +129,8 @@
                         <Label Style="{StaticResource PanierText}"
                                Content="Payer"
                                Foreground="White"/>
-                        <Label Style="{StaticResource PanierText}"
-                               Content="3,47$"
+                        <Label Style="{StaticResource PanierTextDollardSign}"
+                               Content="{Binding PanierVm.Total}"
                                Foreground="White"/>
                         <fa:FontAwesome Icon="Solid_ArrowRight"
                                     VerticalAlignment="Center"
