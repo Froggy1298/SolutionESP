@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
+      xmlns:vm="clr-namespace:CaisseEnregistreuse.ViewModel"
+      d:DataContext="{d:DesignInstance vm:ChoixPaimentVueModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ChoixPaiment">
@@ -35,25 +37,33 @@
                                 Margin="30,30,0,0"
                                 BorderThickness="2,2,1,1"
                                 Style="{StaticResource ChoixPaiementBoutton}"
-                                Content="Argent"/>
+                                Content="Argent"
+                                Command="{Binding BoutonChoixPaiement}"
+                                CommandParameter="Argent"/>
 
             <Button Grid.Column="1" Grid.Row="0"
                                 Margin="0,30,30,0"
                                 BorderThickness="1,2,2,1"
                                 Style="{StaticResource ChoixPaiementBoutton}"
-                                Content="Carte Cadeau"/>
+                                Content="Carte Cadeau"
+                                Command="{Binding BoutonChoixPaiement}"
+                                CommandParameter="CarteCadeau"/>
 
             <Button Grid.Column="0" Grid.Row="1"
                                 Margin="30,0,0,30"
                                 BorderThickness="2,1,1,2"
                                 Style="{StaticResource ChoixPaiementBoutton}"
-                                Content="Débit"/>
+                                Content="Débit"
+                                Command="{Binding BoutonChoixPaiement}"
+                                CommandParameter="Debit"/>
 
             <Button Grid.Column="1" Grid.Row="1"
                                 Margin="0,0,30,30"
                                 BorderThickness="1,1,2,2"
                                 Style="{StaticResource ChoixPaiementBoutton}"
-                                Content="Crédit"/>
+                                Content="Crédit"
+                                Command="{Binding BoutonChoixPaiement}"
+                                CommandParameter="Credit"/>
         </Grid>
     </Grid>
 </Page>

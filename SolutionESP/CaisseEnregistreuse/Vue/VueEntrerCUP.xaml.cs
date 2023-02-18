@@ -80,5 +80,16 @@ namespace CaisseEnregistreuse.Vue
                 DragMove();
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            CUPTextBlock.Text = "111111111111";   
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            CUPTextBlock.Text = "333333333333";
+
+        }
     }
 }

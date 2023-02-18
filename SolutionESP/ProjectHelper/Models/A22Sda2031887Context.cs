@@ -122,7 +122,7 @@ public partial class A22Sda2031887Context : DbContext
             entity.Property(e => e.CoutProduit)
                 .HasPrecision(6, 2)
                 .HasDefaultValueSql("'0.00'")
-                .HasColumnName("coutTotal");
+                .HasColumnName("coutProduit");
             entity.Property(e => e.IdFacture).HasColumnName("idFacture");
             entity.Property(e => e.IdProduit).HasColumnName("idProduit");
             entity.Property(e => e.NbFoisCommandee)

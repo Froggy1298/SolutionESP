@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CaisseEnregistreuse.Vue
 {
     /// <summary>
-    /// Logique d'interaction pour Caisse.xaml
+    /// Logique d'interaction pour MerciAvoirMagasiner.xaml
     /// </summary>
-    public partial class Caisse : Window
+    public partial class MerciAvoirMagasiner : Page
     {
-        public Caisse()
+        public MerciAvoirMagasiner()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

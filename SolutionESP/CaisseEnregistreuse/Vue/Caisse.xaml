@@ -152,7 +152,7 @@
                         FontWeight="Bold"
                         FontSize="20"
                         Background="White"
-                        BorderBrush="{StaticResource Green}">
+                        BorderBrush="{StaticResource Green}" HorizontalAlignment="Left" Width="150" Click="Button_Click_1">
                     <StackPanel Orientation="Vertical">
                         <fa:FontAwesome Icon="Solid_Ban"></fa:FontAwesome>
                         <Label>Annuler</Label>

@@ -24,15 +24,18 @@ namespace CaisseEnregistreuse.ViewModel
     public class PanierVueModel : BaseViewModel
     {
 
-        const decimal TVQ = 0.09975m;
-        const decimal TPS = 0.05m;
+        public const decimal TVQ = 0.09975m;
+        public const decimal TPS = 0.05m;
+
 
         public PanierVueModel()
         {
             BoutonEntrerCUP = new RelayCommand(EntrerCUP_Execute, EntrerCUP_CanExecute);
             BoutonRMProduitPanier = new RelayCommand(RMProduitPanier_Execute, RMProduitPanier_CanExecute);
+
             BdContext = new A22Sda2031887Context();
             BdContext.Tblproduits.Load();
+
             LesProduitsPaniers = new ObservableCollection<ProduitFacturePanierDTO>();
         }
 

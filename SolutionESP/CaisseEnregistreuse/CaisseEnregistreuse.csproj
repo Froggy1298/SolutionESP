@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Vue\RedShoppingCartDallE.png" />
     <None Remove="Vue\SuperC1.png" />
   </ItemGroup>
 
@@ -22,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Vue\RedShoppingCartDallE.png" />
     <Resource Include="Vue\SuperC1.png" />
   </ItemGroup>
 
