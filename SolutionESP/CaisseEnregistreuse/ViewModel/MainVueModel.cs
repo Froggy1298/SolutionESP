@@ -55,6 +55,7 @@ namespace CaisseEnregistreuse.ViewModel
             }
             BdContext.SaveChanges();
             View = new MerciAvoirMagasiner();
+            Tblfacture test = BdContext.Tblfactures.Find(newFactureID);
         }
         private async void updateDataBaseQte(int IdproductToUpdate, decimal quantityToRemove)
         {
