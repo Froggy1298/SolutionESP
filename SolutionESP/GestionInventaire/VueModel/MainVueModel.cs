@@ -35,7 +35,7 @@ namespace GestionInventaire.VueModel
 
         public void ChangeUpdatePage(object? sender, EventArgs e)
         {
-            AjouterModifierVueModel tempsVm = new AjouterModifierVueModel();
+            AjouterModifierVueModel tempsVm = new AjouterModifierVueModel(ListProduitVm.SelectedProduct);
             tempsVm.ChangeToListPage += ChangeToListPageNoUpdate;
             View = new AjouterModifier();
             View.DataContext = tempsVm;

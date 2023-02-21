@@ -33,14 +33,17 @@
                Content="CUP: "/>
 
         <TextBox Grid.Row="0" Grid.Column="1"
-                 Margin="0,15"/>
+                 Margin="0,15"
+                 Text="{Binding TheProduct.Cup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="0"
                Style="{StaticResource AddModifyTitle}"
                Content="Département: "/>
 
         <ComboBox Grid.Row="1" Grid.Column="1"
-                  Margin="0,15"/>
+                  Margin="0,15"
+                  ItemsSource="{Binding LesDepartements}"
+                  SelectedItem="{Binding TheProduct.IdDepartementNavigation}"/>
 
 
         <Label Grid.Row="2" Grid.Column="0"
@@ -48,7 +51,8 @@
                Content="Prix: "/>
 
         <TextBox Grid.Row="2" Grid.Column="1"
-                 Margin="0,15"/>
+                 Margin="0,15"
+                 Text="{Binding TheProduct.Prix}"/>
 
 
         <Label Grid.Row="3" Grid.Column="0"
@@ -57,7 +61,8 @@
 
         <TextBox Grid.Row="4" Grid.Column="0"
                  Grid.RowSpan="2" Grid.ColumnSpan="2"
-                 Margin="10,0"/>
+                 Margin="10,0"
+                 Text="{Binding TheProduct.Description}"/>
         
 
         <Label Grid.Row="0" Grid.Column="2"
@@ -65,14 +70,16 @@
                Content="Nom: "/>
 
         <TextBox Grid.Row="0" Grid.Column="3"
-                 Margin="0,15"/>
+                 Margin="0,15,10,15"
+                 Text="{Binding TheProduct.Nom}"/>
 
         <Label Grid.Row="1" Grid.Column="2"
                Style="{StaticResource AddModifyTitle}"
                Content="Quantité inventaire: "/>
 
         <TextBox Grid.Row="1" Grid.Column="3"
-                 Margin="0,15"/>
+                 Margin="0,15,10,15"
+                 Text="{Binding TheProduct.QteInventaire}"/>
 
         <Label Grid.Row="2" Grid.Column="2"
                Style="{StaticResource AddModifyTitle}"
@@ -80,7 +87,8 @@
 
         <CheckBox Grid.Row="2" Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  HorizontalContentAlignment="Left">
+                  HorizontalContentAlignment="Left"
+                  IsChecked="{Binding TheProduct.VentePoids}">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
@@ -94,7 +102,8 @@
 
         <CheckBox Grid.Row="3" Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  HorizontalContentAlignment="Left">
+                  HorizontalContentAlignment="Left"
+                  IsChecked="{Binding TheProduct.Tps}">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
@@ -106,7 +115,8 @@
 
         <CheckBox Grid.Row="4" Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  HorizontalContentAlignment="Left">
+                  HorizontalContentAlignment="Left"
+                  IsChecked="{Binding TheProduct.Tvq}">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
@@ -118,7 +128,8 @@
                 Command="{Binding BoutonAnnuler}"/>
         <Button Grid.Row="6" Grid.Column="2"
                 Margin="20,10"
-                Content="Ajouter/Modifier"/>
+                Content="{Binding ContentButton}"
+                Command="{Binding BoutonCreerModifier}"/>
 
 
 

@@ -19,6 +19,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <DataGrid Style="{StaticResource DataGridProduct}"
+                      CellStyle="{StaticResource StyleForListProduct}"
                       Margin="10,0"
                       ItemsSource="{Binding LesProduits}"
                       SelectedItem="{Binding SelectedProduct}">

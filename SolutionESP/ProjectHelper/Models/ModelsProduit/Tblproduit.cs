@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Storage;
 using ProjectHelper.Models.ModelsProduitFacture;
 using ProjetHelper.Models;
 
@@ -30,4 +31,5 @@ public partial class Tblproduit
     public virtual Tbldepartement IdDepartementNavigation { get; set; } = null!;
 
     public virtual ICollection<Tblproduitfacture> Tblproduitfactures { get; } = new List<Tblproduitfacture>();
+
 }
