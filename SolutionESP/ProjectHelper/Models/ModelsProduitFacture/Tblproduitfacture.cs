@@ -21,4 +21,18 @@ public partial class Tblproduitfacture
     public virtual Tblfacture IdFactureNavigation { get; set; } = null!;
 
     public virtual Tblproduit IdProduitNavigation { get; set; } = null!;
+
+    [NotMapped]
+    public string FORMATNbFoisCommandee
+    {
+        get
+        {
+            if (IdProduitNavigation.VentePoids == 1)
+                return NbFoisCommandee + "lb";
+            else
+                return NbFoisCommandee.ToString();
+        }
+    }
+    [NotMapped]
+    public decimal? TotalThisProduct => Math.Round((decimal)NbFoisCommandee * (decimal)CoutProduit, 2);
 }

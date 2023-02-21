@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CaisseEnregistreuse.Vue"
+        xmlns:vm="clr-namespace:CaisseEnregistreuse.ViewModel"
+        d:DataContext="{d:DesignInstance vm:FactureVueModel}"
         mc:Ignorable="d"
-        Title="Facture" Height="550" Width="300">
+        Title="Facture" Height="600" Width="300">
     <Window.Resources>
         <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml"/>
     </Window.Resources>
@@ -13,7 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="125"/>
+            <RowDefinition Height="130"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" VerticalAlignment="Center"
@@ -21,13 +23,18 @@
             <Image Margin="0,10" HorizontalAlignment="Left" Source="/Vue/SuperC1.png"></Image>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView>
+            <ListView ItemsSource="{Binding LaFacture}"
+                      HorizontalContentAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource NoHoverStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <Label FontSize="15"
-                                   Content="Fruits et légume"/>
-                            <ListView ItemsSource="{Binding InnerList}">
+                                   Content="{Binding Item1}"/>
+                            
+                            <ListView ItemsSource="{Binding Item2}"
+                                      HorizontalContentAlignment="Stretch"
+                                      ItemContainerStyle="{StaticResource NoHoverStyle}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Margin="50,0,0,0">
@@ -37,11 +44,12 @@
                                                 <ColumnDefinition Width="20*"/>
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0"
-                                                   Content="3"/>
+                                                   Content="{Binding FORMATNbFoisCommandee}"/>
                                             <Label Grid.Column="1"
-                                                   Content="Pain au banane"/>
+                                                   Content="{Binding IdProduitNavigation.Nom}"/>
                                             <Label Grid.Column="3"
-                                                   Content="10.50"/>
+                                                   Content="{Binding TotalThisProduct}"
+                                                   Style="{StaticResource FactureTextDollardSign}"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -70,41 +78,47 @@
                    Grid.Row="0"
                    HorizontalContentAlignment="Right"
                    Content="Total Partiel"/>
+            <Label Grid.Column="1"
+                   Grid.Row="0"
+                   HorizontalContentAlignment="Right"
+                   Content="{Binding InfoFacture.CoutPartiel}"
+                   Style="{StaticResource FactureTextDollardSign}"/>
+            
+            
+            
             <Label Grid.Column="0"
                    Grid.Row="1"
                    HorizontalContentAlignment="Right"
                    Content="TVQ"/>
+            <Label Grid.Column="1"
+                   Grid.Row="1"
+                   HorizontalContentAlignment="Right"
+                   Content="{Binding InfoFacture.CoutTVQ}"
+                   Style="{StaticResource FactureTextDollardSign}"/>
+
             <Label Grid.Column="0"
                    Grid.Row="2"
                    HorizontalContentAlignment="Right"
                    Content="TPS"/>
+            <Label Grid.Column="1"
+                   Grid.Row="2"
+                   HorizontalContentAlignment="Right"
+                   Content="{Binding InfoFacture.CoutTPS}"
+                   Style="{StaticResource FactureTextDollardSign}"/>
+            
             <Label Grid.Column="0"
                    Grid.Row="3"
                    HorizontalContentAlignment="Right"
                    Content="Total"/>
-
-            <Label Grid.Column="1"
-                   Grid.Row="0"
-                   HorizontalContentAlignment="Right"
-                   Content="15"/>
-            <Label Grid.Column="1"
-                   Grid.Row="1"
-                   HorizontalContentAlignment="Right"
-                   Content="0.20"/>
-            <Label Grid.Column="1"
-                   Grid.Row="2"
-                   HorizontalContentAlignment="Right"
-                   Content="0.30"/>
             <Label Grid.Column="1"
                    Grid.Row="3"
                    HorizontalContentAlignment="Right"
-                   Content="15.50"/>
+                   Content="{Binding InfoFacture.CoutTotal}"
+                   Style="{StaticResource FactureTextDollardSign}"/>
 
             <Label Grid.Column="0"
                    Grid.Row="5"
-                   Content="Crédit"/>
-
-
+                   Content="{Binding InfoFacture.ModePaiment}"/>
 
         </Grid>
         <Grid Grid.Row="3">

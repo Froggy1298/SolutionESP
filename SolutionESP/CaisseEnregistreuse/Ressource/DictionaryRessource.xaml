@@ -231,4 +231,17 @@
         </Setter>
     </Style>
 
+    <Style x:Key="FactureTextDollardSign" TargetType="Label">
+        <Setter Property="FontWeight" Value="Black"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding StringFormat='{}{0} $'}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

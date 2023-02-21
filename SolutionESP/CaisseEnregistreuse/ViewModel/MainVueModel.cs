@@ -35,9 +35,9 @@ namespace CaisseEnregistreuse.ViewModel
             View = new Panier();
             View.DataContext = PanierVm;
 
-
             BdContext = new A22Sda2031887Context();
             BdContext.Tblproduits.Load();
+            BdContext.Tblfactures.Load();
         }
 
 
@@ -55,7 +55,12 @@ namespace CaisseEnregistreuse.ViewModel
             }
             BdContext.SaveChanges();
             View = new MerciAvoirMagasiner();
-            Tblfacture test = BdContext.Tblfactures.Find(newFactureID);
+
+
+            FactureVueModel newFactureVueModel = new FactureVueModel(newFactureID);
+            Facture thisFacture = new Facture();
+            thisFacture.DataContext = newFactureVueModel;
+            thisFacture.Show();
         }
         private async void updateDataBaseQte(int IdproductToUpdate, decimal quantityToRemove)
         {
