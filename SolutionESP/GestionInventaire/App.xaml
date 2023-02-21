@@ -1,8 +1,7 @@
 ﻿<Application x:Class="GestionInventaire.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GestionInventaire"
-             StartupUri="Vue/GestionInventaire.xaml">
+             xmlns:local="clr-namespace:GestionInventaire">
     <Application.Resources>
          
     </Application.Resources>

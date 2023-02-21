@@ -1,0 +1,55 @@
+﻿<Page x:Class="GestionInventaire.Vue.ListProduit"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestionInventaire.Vue"
+      xmlns:vm="clr-namespace:GestionInventaire.VueModel"
+      d:DataContext="{d:DesignInstance vm:ListVueModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListProduit">
+    <Page.Resources>
+        <ResourceDictionary Source="/Ressource/DictionaryRessource.xaml"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DataGrid Style="{StaticResource DataGridProduct}"
+                      Margin="10,0"
+                      ItemsSource="{Binding LesProduits}"
+                      SelectedItem="{Binding SelectedProduct}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="CUP" Binding="{Binding Cup}"/>
+                    <DataGridTextColumn Width="*" Header="Nom" Binding="{Binding Nom}"/>
+                    <DataGridTextColumn Width="*" Header="Département" Binding="{Binding IdDepartementNavigation.NomDepartement}"/>
+                    <DataGridTextColumn Width="*" Header="Quantité Inventaire" Binding="{Binding QteInventaire}"/>
+                    <DataGridTextColumn Width="*" Header="Prix" Binding="{Binding Prix}"/>
+                    <DataGridCheckBoxColumn Width="Auto" Header="TPS" Binding="{Binding Tps}"/>
+                    <DataGridCheckBoxColumn Width="Auto" Header="TVQ" Binding="{Binding Tvq}"/>
+                    <DataGridCheckBoxColumn Width="Auto" Header="Vente au poids" Binding="{Binding VentePoids}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" 
+                                    FlowDirection="RightToLeft"
+                                    VerticalAlignment="Center">
+                <Button Style="{StaticResource ChoiceButton}"
+                        Content="Supprimer"
+                        Command="{Binding BoutonSupprimer}"/>
+
+                <Button Style="{StaticResource ChoiceButton}"
+                        Content="Modifier"
+                        Command="{Binding BoutonModifier}"/>
+
+                <Button Style="{StaticResource ChoiceButton}"
+                        Content="Créer"
+                        Command="{Binding BoutonCreer}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

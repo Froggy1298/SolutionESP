@@ -14,39 +14,7 @@
         <TabControl>
             <TabItem Header="Gestion de l'inventaire">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="80*"/>
-                        <RowDefinition Height="20*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <DataGrid Style="{StaticResource DataGridProduct}"
-                                  Margin="10,0">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Header="CUP"/>
-                                <DataGridTextColumn Width="*" Header="Nom"/>
-                                <DataGridTextColumn Width="*" Header="Département"/>
-                                <DataGridTextColumn Width="*" Header="Quantité Inventaire"/>
-                                <DataGridTextColumn Width="*" Header="Prix"/>
-                                <DataGridCheckBoxColumn Width="*" Header="TPS"/>
-                                <DataGridCheckBoxColumn Width="*" Header="TVQ"/>
-                                <DataGridCheckBoxColumn Width="*" Header="Vente au poids"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <StackPanel Orientation="Horizontal" 
-                                    FlowDirection="RightToLeft"
-                                    VerticalAlignment="Center">
-                            <Button Style="{StaticResource ChoiceButton}"
-                                    Content="Supprimer"/>
-
-                            <Button Style="{StaticResource ChoiceButton}"
-                                    Content="Modifier"/>
-
-                            <Button Style="{StaticResource ChoiceButton}"
-                                    Content="Créer"/>
-                        </StackPanel>
-                    </Grid>
+                    <Frame Content="{Binding View}" NavigationUIVisibility="Hidden"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Rapports" Height="20" VerticalAlignment="Bottom">

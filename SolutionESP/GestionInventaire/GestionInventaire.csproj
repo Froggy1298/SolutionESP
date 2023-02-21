@@ -11,4 +11,10 @@
     <ProjectReference Include="..\ProjectHelper\ProjectHelper.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="RelayCommandLibrary">
+      <HintPath>..\ProjectHelper\RelayCommandLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
