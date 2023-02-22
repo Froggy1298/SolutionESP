@@ -149,6 +149,11 @@ namespace CaisseEnregistreuse.ViewModel
 
                 Tblproduit produit = await BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUPProduit);
 
+                if(produit.QteInventaire == 0)
+                {
+                    MessageBox.Show("Quantité inventaire insufisante", "Quantité insufisante");
+                }
+
                 if (produit is null)
                 {
                     MessageBox.Show("Produit entré non trouvé", "Non trouvé");
