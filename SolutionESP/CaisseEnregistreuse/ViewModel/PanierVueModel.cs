@@ -115,10 +115,7 @@ namespace CaisseEnregistreuse.ViewModel
             if (enterCUP.EnterOrCancel == VueEntrerCUP.FinalButtonPressed.Annuler)
                 return;
 
-            long intCUP;
-
-            if (long.TryParse(enterCUP.CUP, out intCUP))
-                AddProductToPanierAsync(intCUP);
+            AddProductToPanierAsync(enterCUP.CUP);
 
         }
         public bool EntrerCUP_CanExecute(object? _)
@@ -134,7 +131,7 @@ namespace CaisseEnregistreuse.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
-        private async Task<bool> AddProductToPanierAsync(long CUPProduit)
+        private async Task<bool> AddProductToPanierAsync(string CUPProduit)
         {
             try
             {
@@ -149,7 +146,7 @@ namespace CaisseEnregistreuse.ViewModel
 
                 Tblproduit produit = await BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUPProduit);
 
-                if(produit.QteInventaire == 0)
+                if (produit.QteInventaire == 0)
                 {
                     MessageBox.Show("Quantité inventaire insufisante", "Quantité insufisante");
                 }

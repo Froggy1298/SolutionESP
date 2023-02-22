@@ -51,7 +51,6 @@ namespace GestionInventaire.VueModel
             set { lesDepartements = value; OnPropertyChanged(); }
         }
 
-
         private string contentButton; public string ContentButton
         {
             get { return contentButton; }
@@ -77,7 +76,6 @@ namespace GestionInventaire.VueModel
             if (!Int64.TryParse(TheProduct.Cup, out long num))
                 return false;
 
-
             if (TheProduct.Prix == 0)
                 return false;
 
@@ -90,7 +88,6 @@ namespace GestionInventaire.VueModel
             if (!Convert.ToBoolean(TheProduct.VentePoids))
                 if(TheProduct.QteInventaire % 1 != 0)
                     return false;
-
 
             return true;
         }
