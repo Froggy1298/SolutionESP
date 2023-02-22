@@ -12,7 +12,7 @@ public partial class Tblproduit
 
     public int IdDepartement { get; set; }
 
-    public long Cup { get; set; }
+    public string Cup { get; set; }
 
     public string Nom { get; set; } = null!;
 

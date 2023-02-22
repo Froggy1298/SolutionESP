@@ -10,7 +10,7 @@ namespace ProjectHelper.Models.ModelsProduit
     public class ProduitPanierDTO
     {
         public int IdProduit { get; set; }
-        public long Cup { get; set; }
+        public string Cup { get; set; }
         public string Nom { get; set; } = null!;
         public decimal Prix { get; set; }
         public bool VentePoids { get; set; }

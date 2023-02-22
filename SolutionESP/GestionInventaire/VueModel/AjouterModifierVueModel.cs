@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace GestionInventaire.VueModel
@@ -69,14 +71,26 @@ namespace GestionInventaire.VueModel
         }
         public bool CreerModifier_CanExecute(object? _)
         {
-            if (long.TryParse(TheProduct.Cup.ToString(), out long x))
+            if (TheProduct.Cup.Length != 12)
                 return false;
 
-            if (TheProduct.Cup.ToString().Length != 12)
+            if (!Int64.TryParse(TheProduct.Cup, out long num))
                 return false;
 
-            if(TheProduct.Prix != 0)
+
+            if (TheProduct.Prix == 0)
                 return false;
+
+            if (TheProduct.IdDepartementNavigation is null)
+                return false;
+
+            if (string.IsNullOrEmpty(TheProduct.Nom))
+                return false;
+
+            if (!Convert.ToBoolean(TheProduct.VentePoids))
+                if(TheProduct.QteInventaire % 1 != 0)
+                    return false;
+
 
             return true;
         }

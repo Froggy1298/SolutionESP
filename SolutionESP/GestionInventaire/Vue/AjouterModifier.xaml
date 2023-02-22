@@ -43,7 +43,7 @@
         <ComboBox Grid.Row="1" Grid.Column="1"
                   Margin="0,15"
                   ItemsSource="{Binding LesDepartements}"
-                  SelectedItem="{Binding TheProduct.IdDepartementNavigation}"/>
+                  SelectedItem="{Binding TheProduct.IdDepartementNavigation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
         <Label Grid.Row="2" Grid.Column="0"
@@ -52,7 +52,8 @@
 
         <TextBox Grid.Row="2" Grid.Column="1"
                  Margin="0,15"
-                 Text="{Binding TheProduct.Prix}"/>
+                 Text="{Binding TheProduct.Prix, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                 KeyDown="TextBox_KeyDown"/>
 
 
         <Label Grid.Row="3" Grid.Column="0"
@@ -62,7 +63,7 @@
         <TextBox Grid.Row="4" Grid.Column="0"
                  Grid.RowSpan="2" Grid.ColumnSpan="2"
                  Margin="10,0"
-                 Text="{Binding TheProduct.Description}"/>
+                 Text="{Binding TheProduct.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
 
         <Label Grid.Row="0" Grid.Column="2"
@@ -71,7 +72,7 @@
 
         <TextBox Grid.Row="0" Grid.Column="3"
                  Margin="0,15,10,15"
-                 Text="{Binding TheProduct.Nom}"/>
+                 Text="{Binding TheProduct.Nom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="2"
                Style="{StaticResource AddModifyTitle}"
@@ -79,7 +80,7 @@
 
         <TextBox Grid.Row="1" Grid.Column="3"
                  Margin="0,15,10,15"
-                 Text="{Binding TheProduct.QteInventaire}"/>
+                 Text="{Binding TheProduct.QteInventaire, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="2" Grid.Column="2"
                Style="{StaticResource AddModifyTitle}"
@@ -88,7 +89,7 @@
         <CheckBox Grid.Row="2" Grid.Column="3"
                   VerticalContentAlignment="Center"
                   HorizontalContentAlignment="Left"
-                  IsChecked="{Binding TheProduct.VentePoids}">
+                  IsChecked="{Binding TheProduct.VentePoids, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
@@ -103,7 +104,7 @@
         <CheckBox Grid.Row="3" Grid.Column="3"
                   VerticalContentAlignment="Center"
                   HorizontalContentAlignment="Left"
-                  IsChecked="{Binding TheProduct.Tps}">
+                  IsChecked="{Binding TheProduct.Tps, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
@@ -116,7 +117,7 @@
         <CheckBox Grid.Row="4" Grid.Column="3"
                   VerticalContentAlignment="Center"
                   HorizontalContentAlignment="Left"
-                  IsChecked="{Binding TheProduct.Tvq}">
+                  IsChecked="{Binding TheProduct.Tvq, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="2" ScaleY="2" />
             </CheckBox.LayoutTransform>
