@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using ProjectHelper.Models.ModelsProduit;
 
 namespace ProjetHelper.Models;
@@ -19,6 +20,15 @@ public partial class Tbldepartement
 
     public override bool Equals(object? obj)
     {
-        return (this.NomDepartement == ((Tbldepartement)obj).NomDepartement);
+        try
+        {
+            return (this.NomDepartement == ((Tbldepartement)obj).NomDepartement);
+
+        }
+        catch (Exception)
+        {
+            return false;
+            throw;
+        }
     }
 }

@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GestionInventaire.Vue"
+        xmlns:vm="clr-namespace:GestionInventaire.VueModel"
+        d:DataContext="{d:DesignInstance vm:MainVueModel}"
         mc:Ignorable="d"
         Title="GestionInventaire" Height="450" Width="800">
     <Window.Resources>
@@ -27,12 +30,25 @@
                     <Grid VerticalAlignment="Center" Margin="25,0">
                         <StackPanel Orientation="Vertical">
                             <DatePicker FontSize="15"
-                                        Margin="0,10"/>
+                                        Margin="0,10"
+                                        SelectedDate="{Binding DateRapportMensuel}"
+                                        DisplayDateEnd="{Binding MaxDateMensuel}"/>
                             <Button FontSize="15"
                                     Margin="0,10"
+                                    Command="{Binding RapportHebdomadaire}"
                                     Content="Rapport Hebdomadaire"/>
+                            
+                            <Grid Height="2"
+                                  Background="Black"
+                                  Margin="-10,0"/>
+
+                            <DatePicker FontSize="15"
+                                        Margin="0,10"
+                                        SelectedDate="{Binding DateRapportMensuel}"
+                                        DisplayDateEnd="{Binding MaxDateMensuel}"/>
                             <Button FontSize="15"
                                     Margin="0,10"
+                                    Command="{Binding RapportMensuel }"
                                     Content="Rapport Mensuel"/>
                         </StackPanel>
                     </Grid>
@@ -43,13 +59,11 @@
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="15*"/>
-                            <RowDefinition Height="15*"/>
-                            <RowDefinition Height="15*"/>
                             <RowDefinition Height="65*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70*"/>
-                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="60*"/>
+                            <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
                         <Label VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Center"
@@ -58,18 +72,8 @@
                                Grid.ColumnSpan="2">
                             <TextBlock TextDecorations="Underline" Text="Rapport"/>
                         </Label>
-                        <Label Grid.Row="1"
-                               Grid.Column="0"
-                               Style="{StaticResource RapportSubtitleRight}"
-                               Content="Date de début: "/>
-
-                        <Label Grid.Row="2"
-                               Grid.Column="0"
-                               Style="{StaticResource RapportSubtitleRight}"
-                               Content="Date de fin: "/>
-
                         <Grid Grid.Row="3" Grid.ColumnSpan="2">
-                            <Frame NavigationUIVisibility="Hidden" Source="/Vue/Hebdomadaire.xaml"/>
+                            <Frame NavigationUIVisibility="Hidden" Source="/Vue/Mensuel.xaml"/>
 
                         </Grid>
                     </Grid>

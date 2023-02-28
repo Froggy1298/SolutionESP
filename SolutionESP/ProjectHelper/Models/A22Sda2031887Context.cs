@@ -171,12 +171,9 @@ public partial class A22Sda2031887Context : DbContext
             entity.ToTable("tblrapportmensuel");
 
             entity.Property(e => e.IdRapportMensuel).HasColumnName("idRapportMensuel");
-            entity.Property(e => e.DateDebut)
+            entity.Property(e => e.DateRapport)
                 .HasColumnType("datetime")
-                .HasColumnName("dateDebut");
-            entity.Property(e => e.DateFin)
-                .HasColumnType("datetime")
-                .HasColumnName("dateFin");
+                .HasColumnName("dateRapport");
             entity.Property(e => e.NbTransactionTotal).HasColumnName("nbTransactionTotal");
             entity.Property(e => e.SommeVente)
                 .HasPrecision(6, 2)

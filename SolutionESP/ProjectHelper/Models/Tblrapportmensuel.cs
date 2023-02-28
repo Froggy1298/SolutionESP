@@ -7,9 +7,7 @@ public partial class Tblrapportmensuel
 {
     public int IdRapportMensuel { get; set; }
 
-    public DateTime DateDebut { get; set; }
-
-    public DateTime DateFin { get; set; }
+    public DateTime DateRapport { get; set; }
 
     public decimal? SommeVente { get; set; }
 

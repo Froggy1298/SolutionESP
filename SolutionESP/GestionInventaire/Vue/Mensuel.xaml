@@ -15,6 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
@@ -22,18 +23,26 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Style="{StaticResource RapportSubtitleRight}"
-                               Content="Somme de vente: "/>
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               FontSize="30"
+               FontWeight="Bold"/> 
 
         <Label Grid.Row="1"
-                               Grid.Column="0"
-                               Style="{StaticResource RapportSubtitleRight}"
-                               Content="Valeur moyenne des transactions: "/>
+            Grid.Column="0"
+            Style="{StaticResource RapportSubtitleRight}"
+            Content="Somme de vente: "/>
 
         <Label Grid.Row="2"
-                               Grid.Column="0"
-                               Style="{StaticResource RapportSubtitleRight}"
-                               Content="Nombre de transaction: "/>
+            Grid.Column="0"
+            Style="{StaticResource RapportSubtitleRight}"
+            Content="Valeur moyenne des transactions: "/>
+
+        <Label Grid.Row="3"
+            Grid.Column="0"
+            Style="{StaticResource RapportSubtitleRight}"
+            Content="Nombre de transaction: "/>
     </Grid>
 </Page>

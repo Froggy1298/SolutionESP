@@ -8,6 +8,7 @@ using RelayCommandLibrary;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,7 +62,19 @@ namespace GestionInventaire.VueModel
         public RelayCommand BoutonSupprimer { get; set; }
         public void Supprimer_Execute(object? _)
         {
-
+            if (MessageBox.Show("Voulez-vous vraiment effacer: " + SelectedProduct.Nom + "\n de la liste des produits", "Suppression", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                return;
+            try
+            {
+                BdContext.Tblproduits.Remove(SelectedProduct);
+                BdContext.SaveChanges();
+                LesProduits = new ObservableCollection<Tblproduit>(BdContext.Tblproduits.ToList());
+            }
+            catch (Exception e)
+            {
+                string temp = e.InnerException is not null ? e.InnerException.Message : "";
+                MessageBox.Show(e.Message + "\n" + temp, "Erreur lors de la suppression");
+            }
         }
         public bool Supprimer_CanExecute(object? _)
         {

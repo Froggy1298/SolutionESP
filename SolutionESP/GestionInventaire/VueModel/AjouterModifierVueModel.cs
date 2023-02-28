@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Windows.Themes;
 using ProjectHelper.Models.ModelsProduit;
 using ProjectHelper.ViewModel;
 using ProjetHelper.Models;
@@ -12,22 +13,30 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Markup;
 
 namespace GestionInventaire.VueModel
 {
     public class AjouterModifierVueModel : BaseViewModel
     {
+
+        enum CRUDAction
+        {
+            None,
+            Ajouter,
+            Modifier
+        }
         public AjouterModifierVueModel()
         {
             InitializeButton();
-            ContentButton = "Ajouter";
+            ContentButton = CRUDAction.Ajouter.ToString();
             TheProduct = new Tblproduit();
         }
 
         public AjouterModifierVueModel(Tblproduit productToUpdate)
         {
             InitializeButton();
-            ContentButton = "Modifier";
+            ContentButton = CRUDAction.Modifier.ToString();
             TheProduct = productToUpdate;
             BdContext.Tbldepartements.Load();
 
@@ -41,7 +50,8 @@ namespace GestionInventaire.VueModel
             LesDepartements = new ObservableCollection<Tbldepartement>(BdContext.Tbldepartements.ToList());
         }
 
-        public event EventHandler<EventArgs> ChangeToListPage;
+        public event EventHandler<EventArgs> ChangeToListPageUpdate;
+        public event EventHandler<EventArgs> ChangeToListPageNoUpdate;
         public A22Sda2031887Context BdContext { get; set; }
 
 
@@ -66,10 +76,37 @@ namespace GestionInventaire.VueModel
         public RelayCommand BoutonCreerModifier { get; set; }
         public void CreerModifier_Execute(object? _)
         {
-            //TODO mettre la logique de modifier ajouter
+
+            if (!CreerModifier_CanExecute(null))
+                return;
+            TheProduct.IdDepartement = TheProduct.IdDepartementNavigation.IdDepartement;
+
+            try
+            {
+                if (ContentButton == CRUDAction.Ajouter.ToString())
+                    BdContext.Tblproduits.Add(TheProduct);
+                else if (ContentButton == CRUDAction.Modifier.ToString())
+                {
+                    BdContext.ChangeTracker.Clear();
+                    BdContext.Tblproduits.Update(TheProduct);
+                }
+
+                BdContext.SaveChanges();
+
+                ChangeToListPageUpdate.Invoke(this, EventArgs.Empty);
+
+            }
+            catch (Exception e)
+            {
+                string temp = e.InnerException is not null ? e.InnerException.Message : "";
+                MessageBox.Show(e.Message + "\n" + temp, "Erreur");
+            }
         }
         public bool CreerModifier_CanExecute(object? _)
         {
+            if (string.IsNullOrEmpty(TheProduct.Cup))
+                return false;
+
             if (TheProduct.Cup.Length != 12)
                 return false;
 
@@ -86,7 +123,7 @@ namespace GestionInventaire.VueModel
                 return false;
 
             if (!Convert.ToBoolean(TheProduct.VentePoids))
-                if(TheProduct.QteInventaire % 1 != 0)
+                if (TheProduct.QteInventaire % 1 != 0)
                     return false;
 
             return true;
@@ -97,7 +134,7 @@ namespace GestionInventaire.VueModel
         public RelayCommand BoutonAnnuler { get; set; }
         public void Annuler_Execute(object? _)
         {
-            ChangeToListPage.Invoke(this, new EventArgs());
+            ChangeToListPageNoUpdate.Invoke(this, new EventArgs());
         }
         public bool Annuler_CanExecute(object? _)
         {

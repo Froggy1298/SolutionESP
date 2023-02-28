@@ -34,6 +34,7 @@
 
         <TextBox Grid.Row="0" Grid.Column="1"
                  Margin="0,15"
+                 VerticalContentAlignment="Center"
                  Text="{Binding TheProduct.Cup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="0"
@@ -52,6 +53,7 @@
 
         <TextBox Grid.Row="2" Grid.Column="1"
                  Margin="0,15"
+                 VerticalContentAlignment="Center"
                  Text="{Binding TheProduct.Prix, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                  KeyDown="TextBox_KeyDown"/>
 
@@ -63,6 +65,7 @@
         <TextBox Grid.Row="4" Grid.Column="0"
                  Grid.RowSpan="2" Grid.ColumnSpan="2"
                  Margin="10,0"
+                 VerticalContentAlignment="Top"
                  Text="{Binding TheProduct.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
 
@@ -72,6 +75,7 @@
 
         <TextBox Grid.Row="0" Grid.Column="3"
                  Margin="0,15,10,15"
+                 VerticalContentAlignment="Center"
                  Text="{Binding TheProduct.Nom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="2"
@@ -80,7 +84,9 @@
 
         <TextBox Grid.Row="1" Grid.Column="3"
                  Margin="0,15,10,15"
-                 Text="{Binding TheProduct.QteInventaire, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 VerticalContentAlignment="Center"
+                 Text="{Binding TheProduct.QteInventaire, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                 KeyDown="TextBox_KeyDown"/>
 
         <Label Grid.Row="2" Grid.Column="2"
                Style="{StaticResource AddModifyTitle}"
