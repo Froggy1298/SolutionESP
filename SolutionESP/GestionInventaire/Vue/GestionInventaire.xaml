@@ -17,7 +17,7 @@
         <TabControl>
             <TabItem Header="Gestion de l'inventaire">
                 <Grid>
-                    <Frame Content="{Binding View}" NavigationUIVisibility="Hidden"/>
+                    <Frame Content="{Binding View1}" NavigationUIVisibility="Hidden"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Rapports" Height="20" VerticalAlignment="Bottom">
@@ -73,7 +73,7 @@
                             <TextBlock TextDecorations="Underline" Text="Rapport"/>
                         </Label>
                         <Grid Grid.Row="3" Grid.ColumnSpan="2">
-                            <Frame NavigationUIVisibility="Hidden" Source="/Vue/Mensuel.xaml"/>
+                            <Frame Content="{Binding View2}" NavigationUIVisibility="Hidden"/>
 
                         </Grid>
                     </Grid>

@@ -7,6 +7,7 @@ using RelayCommandLibrary;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.DirectoryServices;
 using System.Linq;
 using System.Printing;
 using System.Text;
@@ -37,10 +38,15 @@ namespace GestionInventaire.VueModel
 
         public A22Sda2031887Context BdContext { get; set; }
         public ListVueModel ListProduitVm { get; set; }
-        private Page view; public Page View
+        private Page _view1; public Page View
         {
-            get { return view; }
-            set { view = value; OnPropertyChanged(); }
+            get { return _view1; }
+            set { _view1 = value; OnPropertyChanged(); }
+        }
+        private Page _view2; public Page View2
+        {
+            get { return _view2; }
+            set { _view2 = value; OnPropertyChanged(); }
         }
 
         public RelayCommand RapportHebdomadaire { get; set; }
@@ -63,19 +69,19 @@ namespace GestionInventaire.VueModel
 
             if (rapportRecherche is null)
             {
-
+                Tblrapportmensuel newTblRapportMensuel = CreateAndReturnRapportMensuel();
+                View2 = new Mensuel();
+                View2.DataContext = new RapportMensuelVueModel(newTblRapportMensuel);
             }
             else
             {
-                //TODO Comparer lui avec les informations actuelles si pas les meme info modifier le rapport
-                //TODO Rewrite le .Compare ou le .Equal de TblRapportMensuel
+                Tblrapportmensuel newTblRapportMensuel = CreateRapportMensuelFromSelectedDate();
+                if (!rapportRecherche.Equals(newTblRapportMensuel))
+                    UpdateRapportMensuel(newTblRapportMensuel, rapportRecherche.IdRapportMensuel);
 
+                View2 = new Mensuel();
+                View2.DataContext = new RapportMensuelVueModel(newTblRapportMensuel);
             }
-
-
-
-
-
         }
         public bool RapportMensuel_CanExecute(object? _)
         {
@@ -107,53 +113,62 @@ namespace GestionInventaire.VueModel
             return SelectFirstDayOfLastMonth().AddMonths(1).AddDays(-1);
         }
 
-        //private int CreateAndReturnFactureID()
-        //{
-        //    Tblfacture thisFacture = new Tblfacture
-        //    {
-        //        Date = DateTime.Now,
-        //        ModePaiment = ChoixPaimentVm.ChoixPaimentFinal,
-        //        Etat = "Paye",
-        //        Tvqpercent = PanierVueModel.TVQ,
-        //        Tpspercent = PanierVueModel.TPS
-        //    };
-        //    BdContext.Tblfactures.Add(thisFacture);
-        //    BdContext.SaveChanges();
+        private void UpdateRapportMensuel(Tblrapportmensuel newData, int id)
+        {
+            newData.IdRapportMensuel = id;
+            BdContext.Tblrapportmensuels.Update(newData);
+            BdContext.SaveChanges();
+        }
 
-        //    return thisFacture.IdFacture;
-        //}
 
+        private Tblrapportmensuel CreateRapportMensuelFromSelectedDate()
+        {
+            List<Tblfacture> facturesForThisMonth = BdContext.Tblfactures
+                   .Where(e => e.Date.Year == DateRapportMensuel.Year && e.Date.Month == DateRapportMensuel.Month)
+                   .ToList();
+            BdContext.Tblproduitfactures.Load();
+            decimal sommeVente = 0m;
+            foreach (Tblfacture facture in facturesForThisMonth)
+                sommeVente += facture.CoutPartiel;
+
+            decimal valeurMoyenneTransaction = sommeVente / facturesForThisMonth.Count;
+            int nbTransaction = facturesForThisMonth.Count;
+
+            Tblrapportmensuel thisRapportMensuel = new Tblrapportmensuel
+            {
+                DateRapport = DateRapportMensuel,
+                SommeVente = sommeVente,
+                NbTransactionTotal = nbTransaction,
+                ValeurMoyTransaction = valeurMoyenneTransaction
+            };
+            return thisRapportMensuel;
+        }
         private int CreateAndReturnRapportMensuelID()
         {
             try
             {
-                List<Tblfacture> facturesForThisMonth = BdContext.Tblfactures
-                    .Where(e => e.Date.Year == DateRapportMensuel.Year && e.Date.Month == DateRapportMensuel.Month)
-                    .ToList();
-                BdContext.Tblproduitfactures.Load();
-                decimal sommeVente = 0m;
-                foreach (Tblfacture facture in facturesForThisMonth)
-                    sommeVente += facture.CoutPartiel;
-
-                decimal valeurMoyenneTransaction = sommeVente / facturesForThisMonth.Count;
-                int nbTransaction = facturesForThisMonth.Count;
-
-                Tblrapportmensuel thisRapportMensuel = new Tblrapportmensuel
-                {
-                    DateRapport = DateRapportMensuel,
-                    SommeVente = sommeVente,
-                    NbTransactionTotal = nbTransaction,
-                    ValeurMoyTransaction = valeurMoyenneTransaction
-                };
-                return thisRapportMensuel.IdRapportMensuel;
-
+                return CreateAndReturnRapportMensuel().IdRapportMensuel;
             }
             catch (Exception)
             {
                 return 0;
-                throw;
             }
         }
+        private Tblrapportmensuel CreateAndReturnRapportMensuel()
+        {
+            try
+            {
+                Tblrapportmensuel tempRapportMensuel = CreateRapportMensuelFromSelectedDate();
+                BdContext.Tblrapportmensuels.Add(tempRapportMensuel);
+                BdContext.SaveChanges();
+                return tempRapportMensuel;
+            }
+            catch (Exception)
+            {
+                return default(Tblrapportmensuel);
+            }
+        }
+
 
         #endregion
 
