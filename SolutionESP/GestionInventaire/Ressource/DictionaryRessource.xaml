@@ -58,7 +58,7 @@
     <Style x:Key="RapportSubtitleRight" TargetType="Label">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Right"/>
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
@@ -67,6 +67,22 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="RapportSubtitleLeftWithDollarSign" TargetType="Label">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding StringFormat='{}{0} $'}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="DayOfTheWeek" TargetType="Label">

@@ -17,7 +17,7 @@
         <TabControl>
             <TabItem Header="Gestion de l'inventaire">
                 <Grid>
-                    <Frame Content="{Binding View1}" NavigationUIVisibility="Hidden"/>
+                    <Frame Content="{Binding View}" NavigationUIVisibility="Hidden"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Rapports" Height="20" VerticalAlignment="Bottom">

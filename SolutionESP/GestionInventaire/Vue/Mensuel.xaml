@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GestionInventaire.Vue"
+      xmlns:vm="clr-namespace:GestionInventaire.VueModel"
+      d:DataContext="{d:DesignInstance vm:RapportMensuelVueModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Mensuel">
@@ -27,22 +29,38 @@
                Grid.ColumnSpan="2"
                VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center"
-               FontSize="30"
-               FontWeight="Bold"/> 
+               FontSize="35"
+               FontWeight="Bold"
+               Content="{Binding MonthStringFormat}"/> 
 
         <Label Grid.Row="1"
             Grid.Column="0"
             Style="{StaticResource RapportSubtitleRight}"
             Content="Somme de vente: "/>
 
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Style="{StaticResource RapportSubtitleLeftWithDollarSign}"
+               Content="{Binding RapportMensuel.SommeVente}"/>
+
         <Label Grid.Row="2"
             Grid.Column="0"
             Style="{StaticResource RapportSubtitleRight}"
             Content="Valeur moyenne des transactions: "/>
 
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Style="{StaticResource RapportSubtitleLeftWithDollarSign}"
+               Content="{Binding RapportMensuel.ValeurMoyTransaction}"/>
+        
         <Label Grid.Row="3"
             Grid.Column="0"
             Style="{StaticResource RapportSubtitleRight}"
             Content="Nombre de transaction: "/>
+
+        <Label Grid.Row="3"
+               Grid.Column="1"
+               Style="{StaticResource RapportSubtitleLeft}"
+               Content="{Binding RapportMensuel.NbTransactionTotal}"/>
     </Grid>
 </Page>
