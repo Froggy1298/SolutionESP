@@ -26,7 +26,7 @@
         <Label Grid.Row="0"
                                    Grid.ColumnSpan="2"
                                    Style="{StaticResource RapportSubtitleLeft}"
-                                   Content="Moyenne de vente total par jour:"/>
+                                   Content="Vente total par jour:"/>
 
         <Border Grid.Row="1" Grid.ColumnSpan="2" 
                                     BorderBrush="Black"

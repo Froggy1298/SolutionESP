@@ -31,6 +31,9 @@ namespace GestionInventaire.VueModel
             DateRapportMensuel = SelectFirstDayOfLastMonth();
             MaxDateMensuel = SelectLastDayOfLastMonth();
 
+            DateRapportHebdo = SelectLastLundi();
+            MaxDateHebdo = SelectLastDimanche();
+
             RapportHebdomadaire = new RelayCommand(RapportHebdomadaire_Execute, RapportHebdomadaire_CanExecute);
             RapportMensuel = new RelayCommand(RapportMensuel_Execute, RapportMensuel_CanExecute);
 
@@ -49,6 +52,7 @@ namespace GestionInventaire.VueModel
             set { _view2 = value; OnPropertyChanged(); }
         }
 
+
         public RelayCommand RapportHebdomadaire { get; set; }
         public void RapportHebdomadaire_Execute(object? _)
         {
@@ -57,6 +61,40 @@ namespace GestionInventaire.VueModel
         public bool RapportHebdomadaire_CanExecute(object? _)
         {
             return false;
+        }
+
+        private DateTime _dateRapportHebdo; public DateTime DateRapportHebdo
+        {
+            get { return _dateRapportHebdo; }
+            set { _dateRapportHebdo = value; OnPropertyChanged(); }
+        }
+
+        private DateTime _maxDateHebdo; public DateTime MaxDateHebdo
+        {
+            get { return _maxDateHebdo; }
+            set { _maxDateHebdo = value; OnPropertyChanged(); }
+        }
+
+
+        private DateTime SelectLastDimanche()
+        {
+            DateTime currentDate = DateTime.Now;
+
+            // Calcule le nombre de jours qui se sont écoulés depuis dimanche
+            int daysSinceSunday = (int)currentDate.DayOfWeek;
+
+            // Calcule la date du dernier dimanche en soustrayant le nombre de jours depuis dimanche
+            DateTime lastSunday = currentDate.AddDays(-daysSinceSunday);
+
+            return lastSunday;
+        }
+        public DateTime SelectLastLundi()
+        {
+            DateTime today = DateTime.Today;
+            DateTime lastSunday = today.AddDays(-(int)today.DayOfWeek);
+            DateTime lastMonday = lastSunday.AddDays(-6);
+
+            return lastMonday;
         }
 
 
@@ -87,18 +125,14 @@ namespace GestionInventaire.VueModel
         {
             return true;
         }
-        private DateTime _dateRapportMensuel;
-
-        public DateTime DateRapportMensuel
+        private DateTime _dateRapportMensuel; public DateTime DateRapportMensuel
         {
             get { return _dateRapportMensuel; }
             set { _dateRapportMensuel = value; OnPropertyChanged(); }
         }
 
 
-        private DateTime _maxDateMensuel;
-
-        public DateTime MaxDateMensuel
+        private DateTime _maxDateMensuel; public DateTime MaxDateMensuel
         {
             get { return _maxDateMensuel; }
             set { _maxDateMensuel = value; OnPropertyChanged(); }
@@ -168,24 +202,12 @@ namespace GestionInventaire.VueModel
                 return default(Tblrapportmensuel);
             }
         }
-
-
         #endregion
+       
 
 
 
-        private DateTime SelectLastSunday()
-        {
-            DateTime currentDate = DateTime.Now;
-
-            // Calcule le nombre de jours qui se sont écoulés depuis dimanche
-            int daysSinceSunday = (int)currentDate.DayOfWeek;
-
-            // Calcule la date du dernier dimanche en soustrayant le nombre de jours depuis dimanche
-            DateTime lastSunday = currentDate.AddDays(-daysSinceSunday);
-
-            return lastSunday;
-        }
+        
 
 
 
