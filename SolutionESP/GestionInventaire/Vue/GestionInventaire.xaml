@@ -31,8 +31,8 @@
                         <StackPanel Orientation="Vertical">
                             <DatePicker FontSize="15"
                                         Margin="0,10"
-                                        SelectedDate="{Binding DateRapportMensuel}"
-                                        DisplayDateEnd="{Binding MaxDateMensuel}"/>
+                                        SelectedDate="{Binding DateRapportHebdo}"
+                                        DisplayDateEnd="{Binding MaxDateHebdo}"/>
                             <Button FontSize="15"
                                     Margin="0,10"
                                     Command="{Binding RapportHebdomadaire}"

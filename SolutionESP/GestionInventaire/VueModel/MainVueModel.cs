@@ -1,5 +1,6 @@
 ﻿using GestionInventaire.Vue;
 using Microsoft.EntityFrameworkCore;
+using ProjectHelper.Models;
 using ProjectHelper.Models.ModelsProduit;
 using ProjectHelper.ViewModel;
 using ProjetHelper.Models;
@@ -7,13 +8,16 @@ using RelayCommandLibrary;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.DirectoryServices;
 using System.Linq;
 using System.Printing;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace GestionInventaire.VueModel
 {
@@ -56,11 +60,14 @@ namespace GestionInventaire.VueModel
         public RelayCommand RapportHebdomadaire { get; set; }
         public void RapportHebdomadaire_Execute(object? _)
         {
+            //MessageBox.Show(GetLundiOfSelectedWeek(DateRapportHebdo).ToString("D"));
+            DayOfTheWeekInfo NombreVenteDeLaSemaine = GetNbVenteParJoursPourSemaine(GetLundiOfSelectedWeek(DateRapportHebdo));
+            DayOfTheWeekInfo SommeVenteDeLaSemaine = GetTotalVenteParJoursPourSemaine(GetLundiOfSelectedWeek(DateRapportHebdo));
 
         }
         public bool RapportHebdomadaire_CanExecute(object? _)
         {
-            return false;
+            return true;
         }
 
         private DateTime _dateRapportHebdo; public DateTime DateRapportHebdo
@@ -96,6 +103,62 @@ namespace GestionInventaire.VueModel
 
             return lastMonday;
         }
+
+        public DateTime GetLundiOfSelectedWeek(DateTime dateInTheWeek)
+        {
+            int daysUntilMonday = ((int)dateInTheWeek.DayOfWeek - 1 + 7) % 7; // Récupère le nombre de jours restants avant lundi
+            DateTime monday = dateInTheWeek.AddDays(-daysUntilMonday); // Soustrait ce nombre de jours à la date pour obtenir le lundi de la semaine sélectionnée
+            return monday;
+        }
+
+        public DayOfTheWeekInfo GetNbVenteParJoursPourSemaine(DateTime lundiOfWeek)
+        {
+            List<Tblfacture> LesFacturesDeLaSemaine = BdContext.Tblfactures.Where(
+               e => e.Date.Date >= lundiOfWeek.Date &&
+               e.Date.Date <= lundiOfWeek.AddDays(6).Date)
+               .ToList();
+
+            return new DayOfTheWeekInfo
+            {
+                Lundi = new KeyValuePair<DateTime, decimal>(lundiOfWeek, LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.Date).Count()),
+                Mardi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(1), LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.AddDays(1).Date).Count()),
+                Mercredi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(2), LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.AddDays(2).Date).Count()),
+                Jeudi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(3), LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.AddDays(3).Date).Count()),
+                Vendredi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(4), LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.AddDays(4).Date).Count()),
+                Samedi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(5), LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.AddDays(5).Date).Count()),
+                Dimanche = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(6), LesFacturesDeLaSemaine.Where(e => e.Date.Date == lundiOfWeek.AddDays(6).Date).Count())
+            };
+        }
+
+        public DayOfTheWeekInfo GetTotalVenteParJoursPourSemaine(DateTime lundiOfWeek)
+        {
+            List<Tblfacture> LesFacturesDeLaSemaine = BdContext.Tblfactures.Where(
+               e => e.Date.Date >= lundiOfWeek.Date &&
+               e.Date.Date <= lundiOfWeek.AddDays(6).Date)
+               .ToList();
+            BdContext.Tblproduitfactures.Load();
+
+            return new DayOfTheWeekInfo
+            {
+                Lundi = new KeyValuePair<DateTime, decimal>(lundiOfWeek, GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.Day).ToList())),
+                Mardi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(1), GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.AddDays(1).Day).ToList())),
+                Mercredi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(2), GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.AddDays(2).Day).ToList())),
+                Jeudi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(3), GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.AddDays(3).Day).ToList())),
+                Vendredi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(4), GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.AddDays(4).Day).ToList())),
+                Samedi = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(5), GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.AddDays(5).Day).ToList())),
+                Dimanche = new KeyValuePair<DateTime, decimal>(lundiOfWeek.AddDays(6), GetTotalVenteForDay(LesFacturesDeLaSemaine.Where(e => e.Date.Day == lundiOfWeek.AddDays(6).Day).ToList())),
+            };
+        }
+        public decimal GetTotalVenteForDay(List<Tblfacture> factureDuJours)
+        {
+            decimal total = 0m;
+
+            foreach (Tblfacture facture in factureDuJours)
+                total += facture.CoutPartiel;
+
+             return total;
+        }
+
 
 
         #region Rapport Mensuel
@@ -203,11 +266,11 @@ namespace GestionInventaire.VueModel
             }
         }
         #endregion
-       
 
 
 
-        
+
+
 
 
 
