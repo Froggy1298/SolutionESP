@@ -81,7 +81,7 @@
         <Label Grid.Row="2"
                                    Grid.ColumnSpan="2"
                                    Style="{StaticResource RapportSubtitleLeft}"
-                                   Content="Moyenne de transaction par jour:"/>
+                                   Content="Nombre de transaction par jour:"/>
 
         <Border Grid.Row="3" Grid.ColumnSpan="2" 
                                     BorderBrush="Black"
