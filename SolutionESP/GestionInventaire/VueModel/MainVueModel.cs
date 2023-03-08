@@ -26,11 +26,11 @@ namespace GestionInventaire.VueModel
         public MainVueModel()
         {
             BdContext = new A22Sda2031887Context();
-            View = new ListProduit();
+            View1 = new ListProduit();
             ListProduitVm = new ListVueModel();
             ListProduitVm.ChangeToUpdatePage += ChangeUpdatePage;
             ListProduitVm.ChangeToCreatePage += ChangeCreatePage;
-            View.DataContext = ListProduitVm;
+            View1.DataContext = ListProduitVm;
 
             DateRapportMensuel = SelectFirstDayOfLastMonth();
             MaxDateMensuel = SelectLastDayOfLastMonth();
@@ -45,7 +45,7 @@ namespace GestionInventaire.VueModel
 
         public A22Sda2031887Context BdContext { get; set; }
         public ListVueModel ListProduitVm { get; set; }
-        private Page _view1; public Page View
+        private Page _view1; public Page View1
         {
             get { return _view1; }
             set { _view1 = value; OnPropertyChanged(); }
@@ -56,14 +56,16 @@ namespace GestionInventaire.VueModel
             set { _view2 = value; OnPropertyChanged(); }
         }
 
-
+        #region Pour le rapport hebdomadaire
         public RelayCommand RapportHebdomadaire { get; set; }
         public void RapportHebdomadaire_Execute(object? _)
         {
-            //MessageBox.Show(GetLundiOfSelectedWeek(DateRapportHebdo).ToString("D"));
             DayOfTheWeekInfo NombreVenteDeLaSemaine = GetNbVenteParJoursPourSemaine(GetLundiOfSelectedWeek(DateRapportHebdo));
             DayOfTheWeekInfo SommeVenteDeLaSemaine = GetTotalVenteParJoursPourSemaine(GetLundiOfSelectedWeek(DateRapportHebdo));
+            Decimal prixMoyenTransaction = GetMoyenneOfFactureForWeek(GetLundiOfSelectedWeek(DateRapportHebdo));
 
+            View2 = new Hebdomadaire();
+            View2.DataContext = new RapportHebdoVueModel(NombreVenteDeLaSemaine, SommeVenteDeLaSemaine, prixMoyenTransaction);
         }
         public bool RapportHebdomadaire_CanExecute(object? _)
         {
@@ -103,6 +105,25 @@ namespace GestionInventaire.VueModel
 
             return lastMonday;
         }
+        public decimal GetMoyenneOfFactureForWeek(DateTime lundiOfWeek)
+        {
+            List<Tblfacture> LesFacturesDeLaSemaine = BdContext.Tblfactures.Where(
+               e => e.Date.Date >= lundiOfWeek.Date &&
+               e.Date.Date <= lundiOfWeek.AddDays(6).Date)
+               .ToList();
+            BdContext.Tblproduitfactures.Load();
+            if (LesFacturesDeLaSemaine.Count() == 0)
+                return 0m;
+
+            decimal moyenne = 0m;
+
+            foreach(Tblfacture facture in LesFacturesDeLaSemaine)
+            {
+                moyenne += facture.CoutPartiel;
+            }
+            return moyenne / LesFacturesDeLaSemaine.Count();
+        }
+
 
         public DateTime GetLundiOfSelectedWeek(DateTime dateInTheWeek)
         {
@@ -158,7 +179,7 @@ namespace GestionInventaire.VueModel
 
              return total;
         }
-
+        #endregion
 
 
         #region Rapport Mensuel
@@ -268,21 +289,14 @@ namespace GestionInventaire.VueModel
         #endregion
 
 
-
-
-
-
-
-
-
         #region Event
         public void ChangeUpdatePage(object? sender, EventArgs e)
         {
             AjouterModifierVueModel tempsVm = new AjouterModifierVueModel(ListProduitVm.SelectedProduct);
             tempsVm.ChangeToListPageUpdate += ChangeToListPageUpdate;
             tempsVm.ChangeToListPageNoUpdate += ChangeToListPageNoUpdate;
-            View = new AjouterModifier();
-            View.DataContext = tempsVm;
+            View1 = new AjouterModifier();
+            View1.DataContext = tempsVm;
         }
 
         public void ChangeCreatePage(object? sender, EventArgs e)
@@ -290,21 +304,21 @@ namespace GestionInventaire.VueModel
             AjouterModifierVueModel tempsVm = new AjouterModifierVueModel();
             tempsVm.ChangeToListPageUpdate += ChangeToListPageUpdate;
             tempsVm.ChangeToListPageNoUpdate += ChangeToListPageNoUpdate;
-            View = new AjouterModifier();
-            View.DataContext = tempsVm;
+            View1 = new AjouterModifier();
+            View1.DataContext = tempsVm;
         }
 
         public void ChangeToListPageUpdate(object? sender, EventArgs e)
         {
-            View = new ListProduit();
+            View1 = new ListProduit();
             ListProduitVm.LesProduits = new ObservableCollection<Tblproduit>(BdContext.Tblproduits.ToList());
             BdContext.Tbldepartements.Load();
-            View.DataContext = ListProduitVm;
+            View1.DataContext = ListProduitVm;
         }
         public void ChangeToListPageNoUpdate(object? sender, EventArgs e)
         {
-            View = new ListProduit();
-            View.DataContext = ListProduitVm;
+            View1 = new ListProduit();
+            View1.DataContext = ListProduitVm;
         }
 
         #endregion

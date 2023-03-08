@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GestionInventaire.Vue"
+      xmlns:vm="clr-namespace:GestionInventaire.VueModel"
+      d:DataContext="{d:DesignInstance vm:RapportHebdoVueModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Hebdomadaire">
@@ -47,45 +49,83 @@
                 </Grid.RowDefinitions>
                 <!--#region  Day of the week-->
                 <Label Grid.Row="0"
-                                           Grid.Column="0"
-                                           Content="Lun"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="0"
+                    Content="Lun"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="0"
+                    Content="{Binding SommeVenteDeLaSemaine.Lundi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+
                 <Label Grid.Row="0"
-                                           Grid.Column="1"
-                                           Content="Mar"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="1"
+                    Content="Mar"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="1"
+                    Content="{Binding SommeVenteDeLaSemaine.Mardi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+
                 <Label Grid.Row="0"
-                                           Grid.Column="2"
-                                           Content="Mer"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="2"
+                    Content="Mer"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="2"
+                    Content="{Binding SommeVenteDeLaSemaine.Mercredi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+
                 <Label Grid.Row="0"
-                                           Grid.Column="3"
-                                           Content="Jeu"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="3"
+                    Content="Jeu"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="3"
+                    Content="{Binding SommeVenteDeLaSemaine.Jeudi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+
                 <Label Grid.Row="0"
-                                           Grid.Column="4"
-                                           Content="Ven"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="4"
+                    Content="Ven"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="4"
+                    Content="{Binding SommeVenteDeLaSemaine.Vendredi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+
                 <Label Grid.Row="0"
-                                           Grid.Column="5"
-                                           Content="Sam"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="5"
+                    Content="Sam"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="5"
+                    Content="{Binding SommeVenteDeLaSemaine.Samedi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+
                 <Label Grid.Row="0"
-                                           Grid.Column="6"
-                                           Content="Dim"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="6"
+                    Content="Dim"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="6"
+                    Content="{Binding SommeVenteDeLaSemaine.Dimanche.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <!--<Label Grid.Row="1"
+                    Grid.Column="2"
+                    Content="{Binding NombreVenteDeLaSemaine.Dimanche.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>-->
                 <!--#endregion-->
             </Grid>
         </Border>
 
         <Label Grid.Row="2"
-                                   Grid.ColumnSpan="2"
-                                   Style="{StaticResource RapportSubtitleLeft}"
-                                   Content="Nombre de transaction par jour:"/>
+            Grid.ColumnSpan="2"
+            Style="{StaticResource RapportSubtitleLeft}"
+            Content="Nombre de transaction par jour:"/>
 
         <Border Grid.Row="3" Grid.ColumnSpan="2" 
-                                    BorderBrush="Black"
-                                    BorderThickness="2">
+                BorderBrush="Black"
+                BorderThickness="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -102,40 +142,77 @@
                 </Grid.RowDefinitions>
                 <!--#region  Day of the week-->
                 <Label Grid.Row="0"
-                                           Grid.Column="0"
-                                           Content="Lun"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="0"
+                    Content="Lun"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="0"
+                    Content="{Binding NombreVenteDeLaSemaine.Lundi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                
                 <Label Grid.Row="0"
-                                           Grid.Column="1"
-                                           Content="Mar"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="1"
+                    Content="Mar"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="1"
+                    Content="{Binding NombreVenteDeLaSemaine.Mardi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                
                 <Label Grid.Row="0"
-                                           Grid.Column="2"
-                                           Content="Mer"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="2"
+                    Content="Mer"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="2"
+                    Content="{Binding NombreVenteDeLaSemaine.Mercredi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                
                 <Label Grid.Row="0"
-                                           Grid.Column="3"
-                                           Content="Jeu"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="3"
+                    Content="Jeu"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="3"
+                    Content="{Binding NombreVenteDeLaSemaine.Jeudi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                
                 <Label Grid.Row="0"
-                                           Grid.Column="4"
-                                           Content="Ven"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="4"
+                    Content="Ven"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="4"
+                    Content="{Binding NombreVenteDeLaSemaine.Vendredi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                
                 <Label Grid.Row="0"
-                                           Grid.Column="5"
-                                           Content="Sam"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="5"
+                    Content="Sam"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="5"
+                    Content="{Binding NombreVenteDeLaSemaine.Samedi.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                
                 <Label Grid.Row="0"
-                                           Grid.Column="6"
-                                           Content="Dim"
-                                           Style="{StaticResource DayOfTheWeek}"/>
+                    Grid.Column="6"
+                    Content="Dim"
+                    Style="{StaticResource DayOfTheWeek}"/>
+                <Label Grid.Row="1"
+                    Grid.Column="6"
+                    Content="{Binding NombreVenteDeLaSemaine.Dimanche.Value}"
+                    Style="{StaticResource DayOfTheWeek}"/>
                 <!--#endregion-->
             </Grid>
         </Border>
 
-        <Label Grid.Row="5"
-                                   Style="{StaticResource RapportSubtitleLeft}"
-                                   Content="Prix moyen d'une transaction:"/>
+        <Label Grid.Row="5" Grid.Column="0"
+            Style="{StaticResource RapportSubtitleLeft}"
+            Content="Prix moyen d'une transaction:"/>
+        <Label Grid.Row="5" Grid.Column="1"
+            Style="{StaticResource RapportSubtitleLeft}"
+            Content="{Binding MoyPrixFactureForTheWeek}"/>
 
     </Grid>
 </Page>
