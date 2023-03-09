@@ -42,7 +42,7 @@ namespace CaisseEnregistreuse.ViewModel
         public ObservableCollection<ProduitFacturePanierDTO> LesProduitsPaniers { get; set; }
         public A22Sda2031887Context BdContext { get; set; }
 
-        #region Pour les prix à droite
+       #region Pour les prix à droite
         public int QteProduitPanier
         {
             get

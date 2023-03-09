@@ -73,8 +73,6 @@ namespace CaisseEnregistreuse.ViewModel
         {
             BdContext.Tblproduitfactures.Add(ProduitFacturePanierDTO.DTOToObject(x, idFacture));
         }
-
-
         private int CreateAndReturnFactureID()
         {
             Tblfacture thisFacture = new Tblfacture
