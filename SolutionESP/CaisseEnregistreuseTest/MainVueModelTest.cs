@@ -19,14 +19,5 @@ namespace CaisseEnregistreuseTest
             MainVueModel mainVm = new MainVueModel();
             mainVm.Should().NotBeNull();
         }
-
-        public void Payer_CanExecute()
-        {
-            MainVueModel mainVm = new MainVueModel();
-            mainVm.Should().NotBeNull();
-
-            mainVm.Payer_CanExecute(null).Should().BeFalse();
-        }
-
     }
 }
