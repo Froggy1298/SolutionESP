@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GestionInventaire.VueModel
 {
-    internal class RapportMensuelVueModel : BaseViewModel
+    public  class RapportMensuelVueModel : BaseViewModel
     {
         public RapportMensuelVueModel(Tblrapportmensuel tblrapportmensuel)
         {

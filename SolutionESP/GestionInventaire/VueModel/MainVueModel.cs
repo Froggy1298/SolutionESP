@@ -35,8 +35,8 @@ namespace GestionInventaire.VueModel
             DateRapportMensuel = SelectFirstDayOfLastMonth();
             MaxDateMensuel = SelectLastDayOfLastMonth();
 
-            DateRapportHebdo = SelectLastLundi();
-            MaxDateHebdo = SelectLastDimanche();
+            DateRapportHebdo = GetPrecedingLundi();
+            MaxDateHebdo = GetPrecedingDimanche();
 
             RapportHebdomadaire = new RelayCommand(RapportHebdomadaire_Execute, RapportHebdomadaire_CanExecute);
             RapportMensuel = new RelayCommand(RapportMensuel_Execute, RapportMensuel_CanExecute);
@@ -85,7 +85,7 @@ namespace GestionInventaire.VueModel
         }
 
 
-        private DateTime SelectLastDimanche()
+        private DateTime GetPrecedingDimanche()
         {
             DateTime currentDate = DateTime.Now;
 
@@ -97,7 +97,7 @@ namespace GestionInventaire.VueModel
 
             return lastSunday;
         }
-        public DateTime SelectLastLundi()
+        private DateTime GetPrecedingLundi()
         {
             DateTime today = DateTime.Today;
             DateTime lastSunday = today.AddDays(-(int)today.DayOfWeek);
@@ -105,7 +105,7 @@ namespace GestionInventaire.VueModel
 
             return lastMonday;
         }
-        public decimal GetMoyenneOfFactureForWeek(DateTime lundiOfWeek)
+        private decimal GetMoyenneOfFactureForWeek(DateTime lundiOfWeek)
         {
             List<Tblfacture> LesFacturesDeLaSemaine = BdContext.Tblfactures.Where(
                e => e.Date.Date >= lundiOfWeek.Date &&

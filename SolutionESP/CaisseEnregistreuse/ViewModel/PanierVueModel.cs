@@ -83,6 +83,7 @@ namespace CaisseEnregistreuse.ViewModel
         #endregion
 
 
+
         #region Le bouton pour enlever un produit du panier
         public RelayCommand BoutonRMProduitPanier { get; set; }
         public void RMProduitPanier_Execute(object? parameter)
@@ -105,7 +106,7 @@ namespace CaisseEnregistreuse.ViewModel
         }
         #endregion
 
-
+        #region Le bouton qui va ouvrir l'interface pour demander le CUP
         public RelayCommand BoutonEntrerCUP { get; set; }
         public void EntrerCUP_Execute(object? _)
         {
@@ -122,6 +123,11 @@ namespace CaisseEnregistreuse.ViewModel
         {
             return true;
         }
+        #endregion
+
+        /// <summary>
+        /// Permet de mettre à jours tous les propriétés des prix à droite
+        /// </summary>
         private void UpdateAllPrice()
         {
             OnPropertyChanged(nameof(QteProduitPanier));
@@ -131,47 +137,43 @@ namespace CaisseEnregistreuse.ViewModel
             OnPropertyChanged(nameof(Total));
         }
 
+        /// <summary>
+        /// Tous le procésus d'ajout d'un produit au panier
+        /// </summary>
+        /// <param name="CUPProduit"></param>
+        /// <returns></returns>
         private async Task<bool> AddProductToPanierAsync(string CUPProduit)
         {
             try
             {
-                //Lacer method recherche produit sans await
-                //Afficher truc a qte
-                //prend ça
-                //await la méthode recherche produit
-                //Validate si le produit le produit existe
-                //si oui add to panier
-                //Si non affficher erreur
-
-
+                //Cherche le produit dans la base de données
                 Tblproduit produit = await BdContext.Tblproduits.FirstOrDefaultAsync(x => x.Cup == CUPProduit);
 
-                if (produit is null)
+                if (produit is null) //Si le produit existe
                 {
                     MessageBox.Show("Produit entré non trouvé", "Non trouvé");
                     return false;
                 }
 
-                if (produit.QteInventaire == 0)
+                if (produit.QteInventaire == 0) //Si la quantité du produit est suffisante
                 {
                     MessageBox.Show("Quantité inventaire insufisante", "Quantité insufisante");
                     return false;
                 }
 
 
+                //Fait apparaitre l'interface pour demander la quantité
                 VueQuantite vueQuantite = new VueQuantite(Convert.ToBoolean(produit.VentePoids));
                 vueQuantite.ShowDialog();
-
-
                 decimal quantiteProduit = vueQuantite.QuantityFinal;
 
                 ProduitFacturePanierDTO tempsProduitFacture = LesProduitsPaniers.Where(x => x.Product.Cup == produit.Cup).FirstOrDefault();
 
-                if (tempsProduitFacture is not null)
+                if (tempsProduitFacture is not null) //Se le produit se trouve déja dans le panier
                 {
                     decimal newQuantity = quantiteProduit + (decimal)tempsProduitFacture.NbFoisCommandee;
                     //Vérifie si la nouvelle quantité est assez pour l'inventaire actuel
-                    if (produit.QteInventaire < newQuantity)
+                    if (produit.QteInventaire < newQuantity) //Vérifie la qte inventaire
                     {
                         MessageBox.Show("Quantité inventaire insuffisante", "Erreur quantité");
                         return false;
@@ -180,9 +182,9 @@ namespace CaisseEnregistreuse.ViewModel
                     UpdateAllPrice();
                     return true;
                 }
-                else
+                else //Si le produit ne se trouve pas dans le panier
                 {
-                    if (produit.QteInventaire < quantiteProduit)
+                    if (produit.QteInventaire < quantiteProduit) //Vérifie la qte inventaire
                     {
                         MessageBox.Show("Quantité inventaire insuffisante", "Erreur quantité");
                         return false;
@@ -191,7 +193,6 @@ namespace CaisseEnregistreuse.ViewModel
 
                     LesProduitsPaniers.Add(new ProduitFacturePanierDTO(dtoProduitFacture, quantiteProduit, produit.Prix));
                     UpdateAllPrice();
-
                     return true;
                 }
             }

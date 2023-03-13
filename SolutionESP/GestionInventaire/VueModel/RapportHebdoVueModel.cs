@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace GestionInventaire.VueModel
 {
-    class RapportHebdoVueModel : BaseViewModel
+    public class RapportHebdoVueModel : BaseViewModel
     {
         public RapportHebdoVueModel(DayOfTheWeekInfo nombreVenteDeLaSemaine, DayOfTheWeekInfo sommeVenteDeLaSemaine, decimal moyPrixFactureForTheWeek)
         {

@@ -20,7 +20,7 @@ namespace GestionInventaire.VueModel
     public class AjouterModifierVueModel : BaseViewModel
     {
 
-        enum CRUDAction
+        public enum CRUDAction
         {
             None,
             Ajouter,

@@ -22,6 +22,9 @@ namespace CaisseEnregistreuse.ViewModel
 {
     public class MainVueModel : BaseViewModel
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public MainVueModel()
         {
             BoutonPayer = new RelayCommand(Payer_Execute, Payer_CanExecute);
@@ -41,10 +44,16 @@ namespace CaisseEnregistreuse.ViewModel
         }
 
 
+
         public A22Sda2031887Context BdContext { get; set; }
         public PanierVueModel PanierVm { get; set; }
         public ChoixPaimentVueModel ChoixPaimentVm { get; set; }
 
+        /// <summary>
+        /// Se lance apres que le paiment soit fait
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PaymentDone(object? sender, EventArgs e)
         {
             int newFactureID = CreateAndReturnFactureID();
@@ -62,6 +71,12 @@ namespace CaisseEnregistreuse.ViewModel
             thisFacture.DataContext = newFactureVueModel;
             thisFacture.Show();
         }
+
+        /// <summary>
+        /// Met à jours la quantité des produits dans la base de donnée
+        /// </summary>
+        /// <param name="IdproductToUpdate"></param>
+        /// <param name="quantityToRemove"></param>
         private async void updateDataBaseQte(int IdproductToUpdate, decimal quantityToRemove)
         {
             Tblproduit tempProduit = await BdContext.Tblproduits.FindAsync(IdproductToUpdate);
@@ -69,10 +84,20 @@ namespace CaisseEnregistreuse.ViewModel
             BdContext.Tblproduits.Update(tempProduit);
         }
 
+        /// <summary>
+        /// Ajoute un produitFacture valide à la base de donnée
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="idFacture"></param>
         private void addProduitFacture(ProduitFacturePanierDTO x, int idFacture)
         {
             BdContext.Tblproduitfactures.Add(ProduitFacturePanierDTO.DTOToObject(x, idFacture));
         }
+
+        /// <summary>
+        /// Créer la facture et retourne son Id
+        /// </summary>
+        /// <returns></returns>
         private int CreateAndReturnFactureID()
         {
             Tblfacture thisFacture = new Tblfacture
@@ -90,6 +115,7 @@ namespace CaisseEnregistreuse.ViewModel
         }
 
 
+        #region Le bouton qui permet au client de choisir son mode de paiement
         public RelayCommand BoutonPayer { get; set; }
         public void Payer_Execute(object? _)
         {
@@ -101,7 +127,7 @@ namespace CaisseEnregistreuse.ViewModel
         {
             return PanierVm.QteProduitPanier != 0;
         }
-
+        #endregion
 
 
         private Page view; public Page View

@@ -15,6 +15,10 @@ namespace CaisseEnregistreuse.ViewModel
 {
     public class FactureVueModel : BaseViewModel
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="idFacture">L'id de la facture que nous vonlons faire apparaître</param>
         public FactureVueModel(int idFacture)
         {
             BdContext = new A22Sda2031887Context();
@@ -23,12 +27,13 @@ namespace CaisseEnregistreuse.ViewModel
             BdContext.Tblfactures.Load();
             BdContext.Tbldepartements.Load();
 
-            InfoFacture = BdContext.Tblfactures.Find(idFacture);
-            var lesProduitsFacture = BdContext.Tblproduitfactures.Where(x => x.IdFacture == idFacture).ToList();
-            var lesProduitsFactureTrie = lesProduitsFacture.GroupBy(x => x.IdProduitNavigation.IdDepartement).ToList();
+            InfoFacture = BdContext.Tblfactures.Find(idFacture); //Trouve la facture
+            var lesProduitsFacture = BdContext.Tblproduitfactures.Where(x => x.IdFacture == idFacture).ToList(); //Trouve les produits factures
+            var lesProduitsFactureTrie = lesProduitsFacture.GroupBy(x => x.IdProduitNavigation.IdDepartement).ToList(); //Filtre les produitfactures en departement
 
             foreach(var LesProduitFacture  in lesProduitsFactureTrie)
             {
+                //En gros pour chaque départment, on va créer la liste des produitsfactures qui va être relier avec un departement
                 string nomDep = LesProduitFacture.First().IdProduitNavigation.IdDepartementNavigation.NomDepartement;
                 ObservableCollection<Tblproduitfacture> tempProduitFacture = new ObservableCollection<Tblproduitfacture>();
                 foreach(var ProduitFacture in LesProduitFacture)
@@ -39,9 +44,15 @@ namespace CaisseEnregistreuse.ViewModel
             }
 
         }
+
+        /// <summary>
+        /// Le context de notre base de donnée
+        /// </summary>
         public A22Sda2031887Context BdContext { get; set; }
 
-
+        /// <summary>
+        /// Une liste contenant tuble qui contient le nom du département et la liste de produit facture relié à ce départment
+        /// </summary>
         private ObservableCollection<Tuple<string, ObservableCollection<Tblproduitfacture>>> _laFacture;
 
         public ObservableCollection<Tuple<string, ObservableCollection<Tblproduitfacture>>> LaFacture
@@ -50,9 +61,10 @@ namespace CaisseEnregistreuse.ViewModel
             set { _laFacture = value; }
         }
 
-        private Tblfacture _infoFacture;
-
-        public Tblfacture InfoFacture
+        /// <summary>
+        /// Les informations générale de la facture
+        /// </summary>
+        private Tblfacture _infoFacture;public Tblfacture InfoFacture
         {
             get { return _infoFacture; }
             set { _infoFacture = value; }
