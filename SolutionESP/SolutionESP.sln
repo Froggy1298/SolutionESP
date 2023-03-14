@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionInventaire", "Gestio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectHelper", "ProjectHelper\ProjectHelper.csproj", "{684A1A7C-86A3-444A-A809-9FED9058D1ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaisseEnregistreuseTest", "CaisseEnregistreuseTest\CaisseEnregistreuseTest.csproj", "{03EA6FD7-5E1F-4FCC-9D18-5A03538489BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaisseEnregistreuseTest", "CaisseEnregistreuseTest\CaisseEnregistreuseTest.csproj", "{03EA6FD7-5E1F-4FCC-9D18-5A03538489BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionInventaireTest", "GestionInventaireTest\GestionInventaireTest.csproj", "{B9B6B309-8A94-48C9-9E3F-8E07CE1AB300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestionInventaireTest", "GestionInventaireTest\GestionInventaireTest.csproj", "{B9B6B309-8A94-48C9-9E3F-8E07CE1AB300}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallerCaisseEnregistreuse", "InstallerCaisseEnregistreuse\InstallerCaisseEnregistreuse.vdproj", "{798F6F21-85D3-4C67-8488-F37978D45EE5}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallerGestionInventaire", "InstallerGestionInventair\InstallerGestionInventair.vdproj", "{8B002E5A-EBBF-4376-820F-30752F19B426}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,10 @@ Global
 		{B9B6B309-8A94-48C9-9E3F-8E07CE1AB300}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B6B309-8A94-48C9-9E3F-8E07CE1AB300}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B6B309-8A94-48C9-9E3F-8E07CE1AB300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{798F6F21-85D3-4C67-8488-F37978D45EE5}.Debug|Any CPU.ActiveCfg = Debug
+		{798F6F21-85D3-4C67-8488-F37978D45EE5}.Release|Any CPU.ActiveCfg = Release
+		{8B002E5A-EBBF-4376-820F-30752F19B426}.Debug|Any CPU.ActiveCfg = Debug
+		{8B002E5A-EBBF-4376-820F-30752F19B426}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
